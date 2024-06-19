@@ -37,13 +37,12 @@ public class Menu extends javax.swing.JPanel {
         listMenu1.addItem(new Modelo_Menu("2", "PLATOS", Modelo_Menu.MenuType.MENU));
         listMenu1.addItem(new Modelo_Menu("3", "ENTRADAS", Modelo_Menu.MenuType.MENU));
         listMenu1.addItem(new Modelo_Menu("4", "TEQUILA", Modelo_Menu.MenuType.MENU));
-        
-        listMenu1.addItem(new Modelo_Menu("", "", Modelo_Menu.MenuType.EMPTY));
-        listMenu1.addItem(new Modelo_Menu("", "", Modelo_Menu.MenuType.EMPTY));
-        listMenu1.addItem(new Modelo_Menu("", "PAGOS", Modelo_Menu.MenuType.TITTLE));
+        listMenu1.addItem(new Modelo_Menu("", "Pagos", Modelo_Menu.MenuType.TITTLE));
         
         listMenu1.addItem(new Modelo_Menu("5", "EFECTIVO", Modelo_Menu.MenuType.MENU));
         listMenu1.addItem(new Modelo_Menu("6", "TARJETA", Modelo_Menu.MenuType.MENU));
+        listMenu1.addItem(new Modelo_Menu("", "Otros", Modelo_Menu.MenuType.TITTLE));
+        listMenu1.addItem(new Modelo_Menu("9", "ABRIR NUEVA ORDEN", Modelo_Menu.MenuType.MENU));
 
     }
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents

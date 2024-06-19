@@ -4,20 +4,22 @@
  */
 package Vista;
 
+import Controlador.CargarOrdenesSinCancelar;
 import Controlador.Control;
 import Modelo.Conexion;
 import Controlador.Ticket;
 import java.util.List;
 import java.util.ArrayList;
 import javax.swing.table.DefaultTableModel;
-import Controlador.CrearOrden;
 import Controlador.EventMenuSelected;
-import java.io.File;
 import Paneles.*;
-
 import java.awt.Color;
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JComponent;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 
 
 /**
@@ -48,10 +50,23 @@ public class Main extends javax.swing.JFrame {
                 else if(index == 1){
                     setForm(new Platos());
                 }
+                else if(index == 2){
+                    setForm(new Entradas());
+                }
                 else if(index == 7){
                     Pagar p = new Pagar(ContenidoDeTicket);
                     p.setVisible(true);
                     p.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+                }
+                else if(index == 8){
+                    try {
+                        CargarOrdenesSinCancelar newOrder = new CargarOrdenesSinCancelar(ContenidoDeTicket, 1);
+                        newOrder.GuardarOrden();
+                        JOptionPane.showMessageDialog(null, "Nueva Orden", "!!!!!!", JOptionPane.INFORMATION_MESSAGE);
+                    } catch (IOException ex) {
+                        Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                    
                 }
                 else {
                     System.out.print("Selected" + index);
@@ -158,23 +173,5 @@ public class Main extends javax.swing.JFrame {
     private Vista.Menu menu2;
     private Vista.PanelBorder panelBorder1;
     // End of variables declaration//GEN-END:variables
-    
-    private void CargarCarpetaOrd(){
-        String carpetaPath = "C://Users//adria//Documentos//NetBeansProjects//Sistema//Ord";
-
-        File carpeta = new File(carpetaPath);
-        modelo2.setRowCount(0);
-        if (carpeta.isDirectory()) {
-            
-            File[] archivos = carpeta.listFiles();
-
-            for (File archivo : archivos) {
-                modelo2.addRow(new Object[] {archivo.getName()});
-                CrearOrden.numOrd++;
-            }
-        } else {
-            System.out.println("La ruta especificada no corresponde a una carpeta.");
-        }
-    }
 
 }

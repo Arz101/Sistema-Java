@@ -1,0 +1,21 @@
+
+
+*******************VIKINGOS*********************
+
+
+
+*  Numero de serie: OW4RZ5URB126
+Mon Jun 17 12:34:50 CST 2024
+12 : 34
+
+
+
+* PINA_COLADA 6.75
+* VIKIN_GOBLANCO 3.50
+* CUBA_LIBRE 3.50
+* MARTINI 3.50
+* MOJITO 3.80
+* *******************************
+* Total a Pagar: 21,05
+* Pago: 25.0
+* Devuelto: 3,95

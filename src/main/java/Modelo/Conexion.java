@@ -89,7 +89,7 @@ public class Conexion {
         return inf;
     }
 
-    public String ObtenerValoresDeBoton(int id, String tabla){
+    public String ObtenerValoresDeBoton(int id, String tabla, String campo){
         String inf ="";
         
         DecimalFormatSymbols symbols = new DecimalFormatSymbols();
@@ -97,7 +97,7 @@ public class Conexion {
         DecimalFormat df = new DecimalFormat("#.##", symbols);
         double price = 0;
         try(Statement stmt = con.createStatement()){
-            try(ResultSet rs = stmt.executeQuery("SELECT * FROM PLATOS WHERE ID_PLATO = " + String.valueOf(id))){
+            try(ResultSet rs = stmt.executeQuery("SELECT * FROM " + tabla + " WHERE " + campo + " = " + String.valueOf(id))){
                 
                 while(rs.next()){
                     inf = rs.getString("NOMBRE") + " " + rs.getString("PRECIO");
@@ -114,6 +114,8 @@ public class Conexion {
         
         return inf;
     }
+    
+    
     
     public HashMap<String, Integer> LlenarContenedor(){
         HashMap<String, Integer> e = new HashMap<>();

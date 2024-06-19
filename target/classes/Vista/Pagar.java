@@ -428,14 +428,13 @@ public class Pagar extends javax.swing.JFrame {
         double total = 0;
         try{
             Main.ContenidoDeTicket.add("*******************************\n* Total a Pagar: " + df.format(Conexion.Total));
-            JOptionPane.showMessageDialog(null, "Pagar: " + LabelTotal.getText(), "...", JOptionPane.INFORMATION_MESSAGE);
             double getPago = Double.parseDouble(LabelTotal.getText());
             Main.ContenidoDeTicket.add("Pago: " + getPago);
             if(getPago > Conexion.Total){
                 total = (Conexion.Total-=getPago) * -1;
             }
             else total = Conexion.Total-=getPago;
-            
+                        JOptionPane.showMessageDialog(null, "Devolver: " + total, "...", JOptionPane.INFORMATION_MESSAGE);
             modelo.addRow(new Object[] {"Devuelto: " + String.valueOf(total)});
             
             /*
@@ -448,6 +447,7 @@ public class Pagar extends javax.swing.JFrame {
             if(Conexion.Total <= 0){
                 Main.ContenidoDeTicket.add("Devuelto: " + df.format(total));
                 GuardarOrden ord = new GuardarOrden(PagarCuenta);
+                ord.GuardarOrden();
                 Conexion.Total=0;
                 Vista.Main.ContenidoDeTicket.clear();
                 this.dispose();

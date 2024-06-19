@@ -15,17 +15,18 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.Random;
-/**
- *
+/*
  * @author adria
- */
+*/
 public class GuardarOrden{
-    private String nombre = "ord#";
-    private static int numOrder = 1;
-    private String Nserie;
     private Conexion sql = Conexion.Instancia();
+    protected List<String> ticket;
     
-    public GuardarOrden(List<String> ticket) throws IOException{
+    public GuardarOrden(List<String> ticket){
+        this.ticket = ticket;
+    }
+    
+    public void GuardarOrden() throws IOException{
         BufferedWriter bf;
         String NumeroSerie = generateSerialNumber();
         String path = "C:/Users//adria//Documentos//NetBeansProjects//Sistema//Ord//"+NumeroSerie+ ".txt";
@@ -47,7 +48,8 @@ public class GuardarOrden{
         sql.GuardarOrdenes(NumeroSerie);
     }
     
-    private String ObtenerFechaYHora(){
+    protected String ObtenerFechaYHora(){
+        
         Calendar cal = Calendar.getInstance();
         int hora = cal.get(Calendar.HOUR_OF_DAY);
         int min = cal.get(Calendar.MINUTE);
@@ -70,5 +72,28 @@ public class GuardarOrden{
                 }
             return serialNumber.toString();
         }
+    }
+    
+    public void GuardarOrdenSinCancelar(int NumeroMesa) throws IOException{
+         BufferedWriter bf;
+        String numeroS = NumeroSerie.generateSerialNumber();
+        String path = "C:/Users//adria//Documentos//NetBeansProjects//Sistema//OrdenesPendientes//" +NumeroMesa+ ".txt";
+        File archivo = new File(path);
+
+        if(!archivo.exists()){
+            bf = new BufferedWriter(new FileWriter(archivo));
+            
+            bf.write("\n\n*******************VIKINGOS*********************\n\n\n\n");
+            bf.write("*  Numero de serie: " + numeroS);
+            bf.write("\n"+ObtenerFechaYHora());
+            bf.write("\n\n\n\n");
+            
+            for(String s : ticket){
+                bf.write("* " + s + "\n");
+            }
+            
+            bf.close();
+        }
+        
     }
 }

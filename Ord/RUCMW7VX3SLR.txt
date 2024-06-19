@@ -1,0 +1,20 @@
+
+
+*******************VIKINGOS*********************
+
+
+
+*  Numero de serie: RUCMW7VX3SLR
+Mon Jun 17 12:36:56 CST 2024
+12 : 36
+
+
+
+* COSTILLA_BBQ_RAGNAROK 10.50
+* VIKINBURGUER 8.00
+* HAMBURGUESA_CLASICA 6.00
+* CHICHARRONES 8.50
+* *******************************
+* Total a Pagar: 33
+* Pago: 35.0
+* Devuelto: 2

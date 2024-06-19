@@ -424,18 +424,21 @@ public class Pagar extends javax.swing.JFrame {
 
     private void BtnPagarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnPagarActionPerformed
         // TODO add your handling code here:
+        accionDePago();
+    }//GEN-LAST:event_BtnPagarActionPerformed
+    
+    private void accionDePago(){
         DecimalFormat df = new DecimalFormat("#.##");
         double total = 0;
         try{
             Main.ContenidoDeTicket.add("*******************************\n* Total a Pagar: " + df.format(Conexion.Total));
-            JOptionPane.showMessageDialog(null, "Pagar: " + LabelTotal.getText(), "...", JOptionPane.INFORMATION_MESSAGE);
             double getPago = Double.parseDouble(LabelTotal.getText());
             Main.ContenidoDeTicket.add("Pago: " + getPago);
             if(getPago > Conexion.Total){
                 total = (Conexion.Total-=getPago) * -1;
             }
             else total = Conexion.Total-=getPago;
-            
+                        JOptionPane.showMessageDialog(null, "Devolver: " + total, "...", JOptionPane.INFORMATION_MESSAGE);
             modelo.addRow(new Object[] {"Devuelto: " + String.valueOf(total)});
             
             /*
@@ -448,6 +451,7 @@ public class Pagar extends javax.swing.JFrame {
             if(Conexion.Total <= 0){
                 Main.ContenidoDeTicket.add("Devuelto: " + df.format(total));
                 GuardarOrden ord = new GuardarOrden(PagarCuenta);
+                ord.GuardarOrden();
                 Conexion.Total=0;
                 Vista.Main.ContenidoDeTicket.clear();
                 this.dispose();
@@ -457,8 +461,7 @@ public class Pagar extends javax.swing.JFrame {
         catch(Exception e){
             JOptionPane.showMessageDialog(null, e.getMessage(), "Entrada incorrecta", JOptionPane.ERROR_MESSAGE);
         }
-    }//GEN-LAST:event_BtnPagarActionPerformed
-
+    }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton Btn0;
     private javax.swing.JButton Btn1;

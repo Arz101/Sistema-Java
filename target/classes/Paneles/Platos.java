@@ -110,7 +110,7 @@ public class Platos extends javax.swing.JPanel {
 
     private void BtnCostilla_BBQ_RagnarokActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnCostilla_BBQ_RagnarokActionPerformed
         // TODO add your handling code here:
-        String e = sql.ObtenerValoresDeBoton(1, "");
+        String e = sql.ObtenerValoresDeBoton(1, "PLATOS", "ID_PLATO");
         ContenidoDeTicket.add(e);
 
         vt.setVisible(true);
@@ -120,7 +120,7 @@ public class Platos extends javax.swing.JPanel {
 
     private void BtnVikinburguerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnVikinburguerActionPerformed
         // TODO add your handling code here:
-        String e = sql.ObtenerValoresDeBoton(2, "");
+        String e = sql.ObtenerValoresDeBoton(2, "PLATOS", "ID_PLATO");
         ContenidoDeTicket.add(e);
 
         vt.setVisible(true);
@@ -130,7 +130,7 @@ public class Platos extends javax.swing.JPanel {
 
     private void BtnHamb_ClassicActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnHamb_ClassicActionPerformed
         // TODO add your handling code here:
-        String e = sql.ObtenerValoresDeBoton(3, "");
+        String e = sql.ObtenerValoresDeBoton(3, "PLATOS", "ID_PLATO");
         ContenidoDeTicket.add(e);
 
         vt.setVisible(true);
@@ -140,7 +140,7 @@ public class Platos extends javax.swing.JPanel {
 
     private void BtnChicharronesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnChicharronesActionPerformed
         // TODO add your handling code here:
-        String e = sql.ObtenerValoresDeBoton(4, "");
+        String e = sql.ObtenerValoresDeBoton(4, "PLATOS", "ID_PLATO");
         ContenidoDeTicket.add(e);
 
         vt.setVisible(true);
@@ -150,7 +150,7 @@ public class Platos extends javax.swing.JPanel {
 
     private void BtnParrillaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnParrillaActionPerformed
         // TODO add your handling code here:
-        String e = sql.ObtenerValoresDeBoton(5, "");
+        String e = sql.ObtenerValoresDeBoton(5, "PLATOS", "ID_PLATO");
         ContenidoDeTicket.add(e);
 
         vt.setVisible(true);
@@ -160,7 +160,7 @@ public class Platos extends javax.swing.JPanel {
 
     private void BtnPechugaParrillaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnPechugaParrillaActionPerformed
         // TODO add your handling code here:
-        String e = sql.ObtenerValoresDeBoton(6, "");
+        String e = sql.ObtenerValoresDeBoton(6, "PLATOS", "ID_PLATO");
         ContenidoDeTicket.add(e);
 
         vt.setVisible(true);

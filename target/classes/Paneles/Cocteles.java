@@ -6,6 +6,9 @@ package Paneles;
 import Modelo.Conexion;
 import Modelo.VistaTicket;
 import static Vista.Main.ContenidoDeTicket;
+import java.awt.Graphics;
+import java.awt.Image;
+import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 /**
  *
@@ -468,4 +471,15 @@ public class Cocteles extends javax.swing.JPanel {
     private javax.swing.JButton BtnVikingoB;
     private javax.swing.JButton BtnVikingoN;
     // End of variables declaration//GEN-END:variables
+    
+    /*
+    Image img;
+    @Override
+    public void paint(Graphics g){
+        img = new ImageIcon(getClass().getResource("/iconos/fondo1.jpg")).getImage();
+        g.drawImage(img, 0, 0, getWidth(), getHeight(), this);
+        setOpaque(false);
+        super.paint(g);
+    }
+*/
 }
