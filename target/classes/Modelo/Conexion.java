@@ -25,9 +25,9 @@ public class Conexion {
     
     
     private Conexion(){
-        String url = "jdbc:sqlserver://localhost:1433;databaseName=BAR;encrypt=true;trustServerCertificate=true";
-        String user = "user";
-        String password= "wtf1";
+        String url = "jdbc:sqlserver://localhost:4022;databaseName=BAR;encrypt=true;trustServerCertificate=true";
+        String user = "root"; //user
+        String password= "cr7siu1001!"; //wtf1
         
         try {
             con = DriverManager.getConnection(url,user,password);
@@ -78,7 +78,7 @@ public class Conexion {
                     String p = rs.getString("PRECIO");
                     price = Double.parseDouble(p);
                     
-                    Total += price;
+                    //Total += price;
                 } 
             }
         }
@@ -104,7 +104,7 @@ public class Conexion {
                     String p = rs.getString("PRECIO");
                     price = Double.parseDouble(p);
                     
-                    Total += price;
+                    //Total += price;
                 } 
             }
         }
@@ -134,7 +134,8 @@ public class Conexion {
     }
     
     public void GuardarOrdenes(String id){
-        String path = "C://Users//adria//Documentos//NetBeansProjects//Sistema//Ord//" + id + ".txt";
+        //String path .....
+        String path = "C://Users//adrian.rodriguez//Sistema-Java//Ord//" + id + ".txt";
         
         try(PreparedStatement pstmt = con.prepareStatement("INSERT INTO ORDENES (ID, FILECONTENT) VALUES(?, ?)")){
             File file = new File(path);

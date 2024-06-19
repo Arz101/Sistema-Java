@@ -14,6 +14,7 @@ import Controlador.EventMenuSelected;
 import Controlador.GuardarOrden;
 import Paneles.*;
 import java.awt.Color;
+import java.io.File;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -40,6 +41,7 @@ public class Main extends javax.swing.JFrame {
         this.ticket = Ticket.ObtenerInstancia();
         this.ContenidoDeTicket = new ArrayList<>();   
         initComponents();
+        LoadDictionaryOrd();
         setBackground(new Color(0,0,0,0));
         menu2.addEventMenuSelected(new EventMenuSelected(){
             @Override
@@ -53,27 +55,49 @@ public class Main extends javax.swing.JFrame {
                 else if(index == 2){
                     setForm(new Entradas());
                 }
+                else if(index == 4){
+                    setForm(new Botellas());
+                }
                 else if(index == 7){
                     Pagar p = new Pagar(ContenidoDeTicket);
                     p.setVisible(true);
                     p.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
                 }
-                else if(index == 8){
+                else if(index == 9){
                     try {
                         GuardarOrden newOrder = new GuardarOrden(ContenidoDeTicket);
-                        newOrder.GuardarOrden();
-                        JOptionPane.showMessageDialog(null, "Nueva Orden", "!!!!!!", JOptionPane.INFORMATION_MESSAGE);
+                        if(Conexion.Total != 0){
+                            try{
+                                String ans = JOptionPane.showInputDialog(null, "Ingresar Numero de Mesa: ");
+                                int mesa = Integer.parseInt(ans);
+                                newOrder.GuardarOrdenSinCancelar(mesa);
+                                
+                                ContenidoDeTicket.clear();
+                                JOptionPane.showMessageDialog(null, "Esta en una Nueva Orden", "!!!!", JOptionPane.INFORMATION_MESSAGE);
+                            }
+                            catch(Exception e){
+                                JOptionPane.showMessageDialog(null, e.getMessage(), "!!!", JOptionPane.ERROR_MESSAGE);
+                            }
+                        }
+                        else{
+                            GuardarOrden newOrd = new GuardarOrden(ContenidoDeTicket);
+                            newOrd.GuardarOrden();
+                            JOptionPane.showMessageDialog(null, "Nueva Orden", "!!!!!!", JOptionPane.INFORMATION_MESSAGE);
+                        }
                     } catch (IOException ex) {
                         Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
-                    }
-                    
+                    }    
+                }
+                else if(index == 10){
+                    setForm(new PanelDeOrdenesPendientes());
                 }
                 else {
                     System.out.print("Selected" + index);
                 }
             }
         });
-        
+        //CargarOrdenesPendientes a = new CargarOrdenesPendientes();
+        //a.abrirCarpetaa();
         Control.RegistrarMain(this); 
     }
     
@@ -82,6 +106,22 @@ public class Main extends javax.swing.JFrame {
         mainPanel.add(com);
         mainPanel.repaint();
         mainPanel.revalidate();
+    }
+    
+    private void LoadDictionaryOrd(){
+        String path = "C://Users//adrian.rodriguez//Sistema-Java//OrdenesPendientes";
+        File file = new File(path);
+        
+        if(file.isDirectory()){
+            File[] files = file.listFiles();
+            
+            for(File s : files){
+                char num = s.getName().charAt(0);
+                //JOptionPane.showMessageDialog(null, "Key: " + s.getName() + "Value" + num);
+                GuardarOrden.Mesas.put(s.getName(),(int)num);
+            }
+        }
+        
     }
 
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents

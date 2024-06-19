@@ -4,7 +4,7 @@
  */
 package Vista;
 import Controlador.Control;
-import Controlador.CrearOrden;
+//import Controlador.CrearOrden;
 import Controlador.GuardarOrden;
 import Modelo.Conexion;
 import java.util.ArrayList;
@@ -424,6 +424,10 @@ public class Pagar extends javax.swing.JFrame {
 
     private void BtnPagarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnPagarActionPerformed
         // TODO add your handling code here:
+        accionDePago();
+    }//GEN-LAST:event_BtnPagarActionPerformed
+    
+    private void accionDePago(){
         DecimalFormat df = new DecimalFormat("#.##");
         double total = 0;
         try{
@@ -457,8 +461,7 @@ public class Pagar extends javax.swing.JFrame {
         catch(Exception e){
             JOptionPane.showMessageDialog(null, e.getMessage(), "Entrada incorrecta", JOptionPane.ERROR_MESSAGE);
         }
-    }//GEN-LAST:event_BtnPagarActionPerformed
-
+    }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton Btn0;
     private javax.swing.JButton Btn1;

@@ -10,9 +10,7 @@ package Vista;
  */
 public class Manager extends javax.swing.JFrame {
 
-    /**
-     * Creates new form Manager
-     */
+
     public Manager() {
         initComponents();
     }

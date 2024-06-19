@@ -1,0 +1,24 @@
+
+
+*******************VIKINGOS*********************
+
+
+
+*  Numero de serie: PT54L0XCPFT8
+Wed Jun 19 16:37:48 CST 2024
+16 : 37
+
+
+
+* PINA_COLADA 6.75
+* VIKIN_GOBLANCO 3.50
+* VIKIN_GONEGRO 3.50
+* MARTINI 3.50
+* CUBA_LIBRE 3.50
+* CUERNO_AZUL 3.50
+* TEQUILA_SUNRISE 4.00
+* MARGARITA 7.00
+* *******************************
+* Total a Pagar: 35.25
+* Pago: 40.0
+* Devuelto: 4.75

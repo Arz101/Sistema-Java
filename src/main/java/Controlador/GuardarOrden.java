@@ -13,23 +13,28 @@ import java.io.IOException;
 import java.security.SecureRandom;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Random;
+import javax.swing.JOptionPane;
 /*
  * @author adria
 */
 public class GuardarOrden{
     private Conexion sql = Conexion.Instancia();
-    protected List<String> ticket;
+    private List<String> ticket;
+    public static HashMap<String, Integer> Mesas = new HashMap<String, Integer>();
     
     public GuardarOrden(List<String> ticket){
         this.ticket = ticket;
     }
     
+    
     public void GuardarOrden() throws IOException{
         BufferedWriter bf;
         String NumeroSerie = generateSerialNumber();
-        String path = "C:/Users//adria//Documentos//NetBeansProjects//Sistema//Ord//"+NumeroSerie+ ".txt";
+        String path = "C://Users//adrian.rodriguez//Sistema-Java//Ord//" + NumeroSerie + ".txt";
+        //String path = "C:/Users//adria//Documentos//NetBeansProjects//Sistema//Ord//"+NumeroSerie+ ".txt";
         File archivo = new File(path);        
         
         if(!archivo.exists()){
@@ -75,24 +80,30 @@ public class GuardarOrden{
     }
     
     public void GuardarOrdenSinCancelar(int NumeroMesa) throws IOException{
-         BufferedWriter bf;
-        String numeroS = NumeroSerie.generateSerialNumber();
-        String path = "C:/Users//adria//Documentos//NetBeansProjects//Sistema//OrdenesPendientes//" +NumeroMesa+ ".txt";
-        File archivo = new File(path);
+        BufferedWriter bf;
+        
+        if(Mesas.containsKey(NumeroMesa + ".txt")) throw new IOException("Ya esta reservado");
+        if(!Mesas.containsKey(NumeroMesa+".txt")){
+            JOptionPane.showMessageDialog(null, Mesas);
+            String numeroS = NumeroSerie.generateSerialNumber();
+            String path = "C://Users//adrian.rodriguez//Sistema-Java//OrdenesPendientes//" + NumeroMesa+ ".txt";
+            //String path = "C:/Users//adria//Documentos//NetBeansProjects//Sistema//OrdenesPendientes//" +NumeroMesa+ ".txt";
+            File archivo = new File(path);
 
-        if(!archivo.exists()){
-            bf = new BufferedWriter(new FileWriter(archivo));
+            if(!archivo.exists()){
+                bf = new BufferedWriter(new FileWriter(archivo));
             
-            bf.write("\n\n*******************VIKINGOS*********************\n\n\n\n");
-            bf.write("*  Numero de serie: " + numeroS);
-            bf.write("\n"+ObtenerFechaYHora());
-            bf.write("\n\n\n\n");
+
             
-            for(String s : ticket){
-                bf.write("* " + s + "\n");
+                for(String s : ticket){
+                   bf.write(s + "\n");
+                }
+            
+                bf.close();
             }
-            
-            bf.close();
+        }
+        else{
+            Mesas.put(NumeroMesa+".txt", NumeroMesa);
         }
         
     }

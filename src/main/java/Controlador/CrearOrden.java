@@ -2,6 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
+/*
 package Controlador;
 import br.com.adilson.util.Extenso;
 import br.com.adilson.util.PrinterMatrix;
@@ -21,7 +22,7 @@ import java.util.List;
 /**
  *
  * @author adria
- */
+
 public class CrearOrden {
     
     private String nameOrd = "ord#"; 
@@ -103,4 +104,14 @@ public class CrearOrden {
         
         return String.valueOf(fechaActual + "\n" + String.valueOf( hora + " : " + min));
     }
+    
+    public class Aux{
+        public Aux(){
+        }
+        
+        public void Extenso(){
+            
+        }
+    }
 }
+*/
