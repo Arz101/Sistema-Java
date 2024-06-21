@@ -14,7 +14,12 @@ import javax.print.Doc;
 import javax.print.DocFlavor;
 import javax.print.DocPrintJob;
 import javax.print.PrintService;
-import javax.print.PrintServiceLookup;
+import j
+    private String file = "";
+    public static boolean confirmador = false;
+    private Date fechaActual;
+            
+    public CrearOrden(List<String> avax.print.PrintServiceLookup;
 import javax.print.SimpleDoc;
 import javax.print.attribute.HashPrintRequestAttributeSet;
 import javax.print.attribute.PrintRequestAttributeSet;
@@ -27,12 +32,7 @@ public class CrearOrden {
     
     private String nameOrd = "ord#"; 
     public static int numOrd = 1;
-    private String txt = ".txt";
-    private String file = "";
-    public static boolean confirmador = false;
-    private Date fechaActual;
-            
-    public CrearOrden(List<String> list){
+    private String txt = ".txt";list){
         PrinterMatrix print = new PrinterMatrix();
         file = nameOrd + numOrd + txt;
         numOrd+=1;

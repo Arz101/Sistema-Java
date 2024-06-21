@@ -273,9 +273,9 @@ public class Botellas extends javax.swing.JPanel {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(BtnJimador_Blanco, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(BtnDon_Julio_Reposado, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(BtnRed_Label, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(BtnRed_Label, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(BtnDon_Julio_Reposado, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(BtnDon_Julio_Blanco, javax.swing.GroupLayout.DEFAULT_SIZE, 56, Short.MAX_VALUE)
@@ -339,7 +339,7 @@ public class Botellas extends javax.swing.JPanel {
     }//GEN-LAST:event_Btn1800_ReposadoActionPerformed
 
     private void BtnBuchanans_12_yearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnBuchanans_12_yearActionPerformed
-        String e = sql.ObtenerValoresDeBoton(9, "BOTELLAS", "ID_BOTELLAS");
+        String e = sql.ObtenerValoresDeBoton(9, "BOTELLAS", "ID_BOTELLA");
         
         ContenidoDeTicket.add(e);
         vt.setVisible(true);
@@ -348,7 +348,7 @@ public class Botellas extends javax.swing.JPanel {
     }//GEN-LAST:event_BtnBuchanans_12_yearActionPerformed
 
     private void BtnBlackLabelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnBlackLabelActionPerformed
-        String e = sql.ObtenerValoresDeBoton(11, "BOTELLAS", "ID_BOTELLAS");
+        String e = sql.ObtenerValoresDeBoton(11, "BOTELLAS", "ID_BOTELLA");
         
         ContenidoDeTicket.add(e);
         vt.setVisible(true);
@@ -357,7 +357,7 @@ public class Botellas extends javax.swing.JPanel {
     }//GEN-LAST:event_BtnBlackLabelActionPerformed
 
     private void BtnWilliam_LawsonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnWilliam_LawsonActionPerformed
-        String e = sql.ObtenerValoresDeBoton(10, "BOTELLAS", "ID_BOTELLAS");
+        String e = sql.ObtenerValoresDeBoton(10, "BOTELLAS", "ID_BOTELLA");
         
         ContenidoDeTicket.add(e);
         vt.setVisible(true);
@@ -366,7 +366,7 @@ public class Botellas extends javax.swing.JPanel {
     }//GEN-LAST:event_BtnWilliam_LawsonActionPerformed
 
     private void BtnFlor_canaa_4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnFlor_canaa_4ActionPerformed
-        String e = sql.ObtenerValoresDeBoton(17, "BOTELLAS", "ID_BOTELLAS");
+        String e = sql.ObtenerValoresDeBoton(17, "BOTELLAS", "ID_BOTELLA");
         
         ContenidoDeTicket.add(e);
         vt.setVisible(true);
@@ -375,7 +375,7 @@ public class Botellas extends javax.swing.JPanel {
     }//GEN-LAST:event_BtnFlor_canaa_4ActionPerformed
 
     private void BtnFlor_Cana_12ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnFlor_Cana_12ActionPerformed
-        String e = sql.ObtenerValoresDeBoton(18, "BOTELLAS", "ID_BOTELLAS");
+        String e = sql.ObtenerValoresDeBoton(18, "BOTELLAS", "ID_BOTELLA");
         
         ContenidoDeTicket.add(e);
         vt.setVisible(true);
@@ -384,7 +384,7 @@ public class Botellas extends javax.swing.JPanel {
     }//GEN-LAST:event_BtnFlor_Cana_12ActionPerformed
 
     private void BtnFinlandia_FrambuesaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnFinlandia_FrambuesaActionPerformed
-        String e = sql.ObtenerValoresDeBoton(19, "BOTELLAS", "ID_BOTELLAS");
+        String e = sql.ObtenerValoresDeBoton(19, "BOTELLAS", "ID_BOTELLA");
         
         ContenidoDeTicket.add(e);
         vt.setVisible(true);
@@ -393,7 +393,7 @@ public class Botellas extends javax.swing.JPanel {
     }//GEN-LAST:event_BtnFinlandia_FrambuesaActionPerformed
 
     private void BtnSmirnoffActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnSmirnoffActionPerformed
-        String e = sql.ObtenerValoresDeBoton(20, "BOTELLAS", "ID_BOTELLAS");
+        String e = sql.ObtenerValoresDeBoton(20, "BOTELLAS", "ID_BOTELLA");
         
         ContenidoDeTicket.add(e);
         vt.setVisible(true);
@@ -402,7 +402,7 @@ public class Botellas extends javax.swing.JPanel {
     }//GEN-LAST:event_BtnSmirnoffActionPerformed
 
     private void BtnRussian_RyeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnRussian_RyeActionPerformed
-        String e = sql.ObtenerValoresDeBoton(21, "BOTELLAS", "ID_BOTELLAS");
+        String e = sql.ObtenerValoresDeBoton(21, "BOTELLAS", "ID_BOTELLA");
         
         ContenidoDeTicket.add(e);
         vt.setVisible(true);
@@ -411,7 +411,7 @@ public class Botellas extends javax.swing.JPanel {
     }//GEN-LAST:event_BtnRussian_RyeActionPerformed
 
     private void BtnGinebraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnGinebraActionPerformed
-        String e = sql.ObtenerValoresDeBoton(22, "BOTELLAS", "ID_BOTELLAS");
+        String e = sql.ObtenerValoresDeBoton(22, "BOTELLAS", "ID_BOTELLA");
         
         ContenidoDeTicket.add(e);
         vt.setVisible(true);
@@ -421,7 +421,7 @@ public class Botellas extends javax.swing.JPanel {
 
     private void BtnJimador_ReposadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnJimador_ReposadoActionPerformed
         // TODO add your handling code here:
-        String e = sql.ObtenerValoresDeBoton(1, "BOTELLAS", "ID_BOTELLAS");
+        String e = sql.ObtenerValoresDeBoton(1, "BOTELLAS", "ID_BOTELLA");
         
         ContenidoDeTicket.add(e);
         vt.setVisible(true);
@@ -432,7 +432,7 @@ public class Botellas extends javax.swing.JPanel {
 
     private void BtnJimador_Reposado1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnJimador_Reposado1ActionPerformed
         // TODO add your handling code here:
-        String e = sql.ObtenerValoresDeBoton(2, "BOTELLAS", "ID_BOTELLAS");
+        String e = sql.ObtenerValoresDeBoton(2, "BOTELLAS", "ID_BOTELLA");
         
         ContenidoDeTicket.add(e);
         vt.setVisible(true);
@@ -442,7 +442,7 @@ public class Botellas extends javax.swing.JPanel {
 
     private void BtnJimador_BlancoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnJimador_BlancoActionPerformed
         // TODO add your handling code here:
-        String e = sql.ObtenerValoresDeBoton(3, "BOTELLAS", "ID_BOTELLAS");
+        String e = sql.ObtenerValoresDeBoton(3, "BOTELLAS", "ID_BOTELLA");
         
         ContenidoDeTicket.add(e);
         vt.setVisible(true);
@@ -451,7 +451,7 @@ public class Botellas extends javax.swing.JPanel {
     }//GEN-LAST:event_BtnJimador_BlancoActionPerformed
 
     private void BtnDon_Julio_ReposadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnDon_Julio_ReposadoActionPerformed
-        String e = sql.ObtenerValoresDeBoton(4, "BOTELLAS", "ID_BOTELLAS");
+        String e = sql.ObtenerValoresDeBoton(4, "BOTELLAS", "ID_BOTELLA");
         
         ContenidoDeTicket.add(e);
         vt.setVisible(true);
@@ -460,7 +460,7 @@ public class Botellas extends javax.swing.JPanel {
     }//GEN-LAST:event_BtnDon_Julio_ReposadoActionPerformed
 
     private void BtnDon_Julio_BlancoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnDon_Julio_BlancoActionPerformed
-        String e = sql.ObtenerValoresDeBoton(5, "BOTELLAS", "ID_BOTELLAS");
+        String e = sql.ObtenerValoresDeBoton(5, "BOTELLAS", "ID_BOTELLA");
         
         ContenidoDeTicket.add(e);
         vt.setVisible(true);
@@ -469,7 +469,7 @@ public class Botellas extends javax.swing.JPanel {
     }//GEN-LAST:event_BtnDon_Julio_BlancoActionPerformed
 
     private void BtnHerradura_ReposadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnHerradura_ReposadoActionPerformed
-        String e = sql.ObtenerValoresDeBoton(6, "BOTELLAS", "ID_BOTELLAS");
+        String e = sql.ObtenerValoresDeBoton(6, "BOTELLAS", "ID_BOTELLA");
         
         ContenidoDeTicket.add(e);
         vt.setVisible(true);
@@ -478,7 +478,7 @@ public class Botellas extends javax.swing.JPanel {
     }//GEN-LAST:event_BtnHerradura_ReposadoActionPerformed
 
     private void BtnRed_LabelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnRed_LabelActionPerformed
-        String e = sql.ObtenerValoresDeBoton(12, "BOTELLAS", "ID_BOTELLAS");
+        String e = sql.ObtenerValoresDeBoton(12, "BOTELLAS", "ID_BOTELLA");
         
         ContenidoDeTicket.add(e);
         vt.setVisible(true);
@@ -487,7 +487,7 @@ public class Botellas extends javax.swing.JPanel {
     }//GEN-LAST:event_BtnRed_LabelActionPerformed
 
     private void BtnJack_Daniels_AppleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnJack_Daniels_AppleActionPerformed
-        String e = sql.ObtenerValoresDeBoton(13, "BOTELLAS", "ID_BOTELLAS");
+        String e = sql.ObtenerValoresDeBoton(13, "BOTELLAS", "ID_BOTELLA");
         
         ContenidoDeTicket.add(e);
         vt.setVisible(true);
@@ -496,7 +496,7 @@ public class Botellas extends javax.swing.JPanel {
     }//GEN-LAST:event_BtnJack_Daniels_AppleActionPerformed
 
     private void BtnJack_DanielsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnJack_DanielsActionPerformed
-        String e = sql.ObtenerValoresDeBoton(14, "BOTELLAS", "ID_BOTELLAS");
+        String e = sql.ObtenerValoresDeBoton(14, "BOTELLAS", "ID_BOTELLA");
         
         ContenidoDeTicket.add(e);
         vt.setVisible(true);
@@ -505,7 +505,7 @@ public class Botellas extends javax.swing.JPanel {
     }//GEN-LAST:event_BtnJack_DanielsActionPerformed
 
     private void BtnBacardiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnBacardiActionPerformed
-        String e = sql.ObtenerValoresDeBoton(15, "BOTELLAS", "ID_BOTELLAS");
+        String e = sql.ObtenerValoresDeBoton(15, "BOTELLAS", "ID_BOTELLA");
         
         ContenidoDeTicket.add(e);
         vt.setVisible(true);
@@ -514,7 +514,7 @@ public class Botellas extends javax.swing.JPanel {
     }//GEN-LAST:event_BtnBacardiActionPerformed
 
     private void BtnBacardi_OroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnBacardi_OroActionPerformed
-        String e = sql.ObtenerValoresDeBoton(16, "BOTELLAS", "ID_BOTELLAS");
+        String e = sql.ObtenerValoresDeBoton(16, "BOTELLAS", "ID_BOTELLA");
         
         ContenidoDeTicket.add(e);
         vt.setVisible(true);
@@ -523,7 +523,7 @@ public class Botellas extends javax.swing.JPanel {
     }//GEN-LAST:event_BtnBacardi_OroActionPerformed
 
     private void Btn1800_CristalinoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Btn1800_CristalinoActionPerformed
-        String e = sql.ObtenerValoresDeBoton(7, "BOTELLAS", "ID_BOTELLAS");
+        String e = sql.ObtenerValoresDeBoton(7, "BOTELLAS", "ID_BOTELLA");
         
         ContenidoDeTicket.add(e);
         vt.setVisible(true);

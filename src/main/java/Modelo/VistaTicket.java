@@ -8,16 +8,17 @@ import static Vista.Main.ContenidoDeTicket;
 import Controlador.Ticket;
 import javax.swing.table.DefaultTableModel;
 import Controlador.Control;
+import javax.swing.JOptionPane;
 /**
  *
- * @author adria
+ * @author adrian
  */
 public class VistaTicket extends javax.swing.JFrame {
 
-    private DefaultTableModel modelo;
-    private DefaultTableModel modelo2;
+    private final DefaultTableModel modelo;
     private Ticket ticket = Ticket.ObtenerInstancia();
     private static VistaTicket instancia;
+    private Conexion con = Conexion.Instancia();
     
     private VistaTicket() {
         initComponents();
@@ -25,7 +26,7 @@ public class VistaTicket extends javax.swing.JFrame {
         modelo.addRow(new Object[]{"Sub Total: "});    
         ActualizarTabla(true);
         
-        Control.RegistrarFrame(this);
+        Control.RegistrarFrame(this); 
     }
     
     public static VistaTicket Instancia(){
@@ -39,7 +40,7 @@ public class VistaTicket extends javax.swing.JFrame {
     public void ActualizarTabla(boolean e){
         
         modelo.setRowCount(0);
-        if(e){
+        if(true){
             for(String inf : ticket.ModificarCont(ContenidoDeTicket)){
                 modelo.addRow(new Object[]{inf});
             }
@@ -49,8 +50,29 @@ public class VistaTicket extends javax.swing.JFrame {
                 modelo.addRow(new Object[]{inf});
             }
         }
+        
         AgregarSubTotal(ticket.ObtenerTotal());
         AgregarPendienteDePago(ticket.ObtenerTotal());
+        
+    }
+    
+        public void ActualizarTabla(String XD){
+        
+        modelo.setRowCount(0);
+        if(true){
+            for(String inf : ticket.ModificarCont(ContenidoDeTicket)){
+                modelo.addRow(new Object[]{inf});
+            }
+        }
+        else { 
+            for(String inf : ContenidoDeTicket){
+                modelo.addRow(new Object[]{inf});
+            }
+        }
+        
+        AgregarSubTotalPendiente();
+        AgregarPendienteDePagoPendiente();
+        
     }
     
     private void AgregarSubTotal(String Total){
@@ -61,11 +83,30 @@ public class VistaTicket extends javax.swing.JFrame {
         modelo.addRow(new Object[] {"Pendiente de Pago: " + Total});
     }
     
+    private void AgregarSubTotalPendiente(){
+        modelo.addRow(new Object[] {"Sub Total: " + Conexion.TotalPendiente});
+    }
+    
+    private void AgregarPendienteDePagoPendiente(){
+        modelo.addRow(new Object[] {"Pendiente de Pago: " + Conexion.TotalPendiente});
+    }
     
     public static void closeTicket(){
         instancia = null;
     }
     
+    
+    public String getValue(){
+        try{
+            int index = TablaTicket.getSelectedRow();
+            String value = String.valueOf(modelo.getValueAt(index, 0));
+            return value;
+        }
+        catch(Exception e){
+            JOptionPane.showMessageDialog(null, e.getMessage() + "\nVERIFIQUE QUE SELECCIONO UNA FILA DEL TICKET", "ERROR!!", JOptionPane.ERROR_MESSAGE);
+        }
+        return "";
+    }
     
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -76,7 +117,7 @@ public class VistaTicket extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         TablaTicket.setBackground(new java.awt.Color(255, 255, 255));
-        TablaTicket.setFont(new java.awt.Font("Fixedsys Excelsior 3.01", 0, 18)); // NOI18N
+        TablaTicket.setFont(new java.awt.Font("Consolas", 1, 12)); // NOI18N
         TablaTicket.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
@@ -93,8 +134,8 @@ public class VistaTicket extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 272, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 334, Short.MAX_VALUE)
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)

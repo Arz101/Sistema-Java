@@ -8,9 +8,6 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.RenderingHints;
 import java.awt.GradientPaint;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-import javax.swing.JFrame;
 /**
  *
  * @author adria
@@ -45,6 +42,7 @@ public class Menu extends javax.swing.JPanel {
         listMenu1.addItem(new Modelo_Menu("", "Otros", Modelo_Menu.MenuType.TITTLE));
         listMenu1.addItem(new Modelo_Menu("9", "ABRIR NUEVA ORDEN", Modelo_Menu.MenuType.MENU));
         listMenu1.addItem(new Modelo_Menu("9", "ABRIR ORDEN PENDIENTE", Modelo_Menu.MenuType.MENU));
+        listMenu1.addItem(new Modelo_Menu("9", "EDITAR ORDEN", Modelo_Menu.MenuType.MENU));
 
     }
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -105,21 +103,6 @@ public class Menu extends javax.swing.JPanel {
         super.paintChildren(g);
     }
     
-    private int x;
-    private int y;
-    /*
-    public void initMoving(JFrame frame){
-        panelMoving.addMouseListener(new MouseAdapter() {
-            @Override
-            public void mousePressed(MouseEvent me){
-                x = me.getX();
-                y = me.getY();
-            }
-        });
-        
-    
-    }
-*/
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel1;
     private Vista.ListMenu<String> listMenu1;

@@ -16,6 +16,7 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 /**
  *
@@ -23,20 +24,23 @@ import javax.swing.table.DefaultTableModel;
  */
 public class PanelDeOrdenesPendientes extends javax.swing.JPanel {
     
-    Conexion sql = Conexion.Instancia();
     VistaTicket vt = VistaTicket.Instancia();
     DefaultTableModel model;
     
     public PanelDeOrdenesPendientes() {
         initComponents();
         model = (DefaultTableModel) ordenesTabla.getModel();
+        //LblOrden.setText(String.valueOf(model.getValueAt(ordenesTabla.getSelectedRow(),0)));
         cargar();
     }
     
     public void cargar(){
-        for(String s : Mesas.keySet()){
-            model.addRow(new Object[]{s});
+        if(!Mesas.isEmpty()){
+            for(String s : Mesas.keySet()){
+                model.addRow(new Object[]{s});
+            }
         }
+        else JOptionPane.showMessageDialog(null, "No hay ordenes pendientes :)", ":)", JOptionPane.INFORMATION_MESSAGE);
     }
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -102,24 +106,22 @@ public class PanelDeOrdenesPendientes extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void BtnAbrirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnAbrirActionPerformed
-        // TODO add your handling code here:
-        List<String> contenido = new ArrayList<>();
-        int index = ordenesTabla.getSelectedRow();
-        LblOrden.setText(String.valueOf(model.getValueAt(index,0)));
+// /*TODO add your handling code here:*/
+        var index = ordenesTabla.getSelectedRow();
         try{
             String path = "C://Users//adrian.rodriguez//Sistema-Java//OrdenesPendientes//" + String.valueOf(ordenesTabla.getValueAt(index, 0));
-            BufferedReader file = new BufferedReader(new FileReader(path));
-            String line;
-            ContenidoDeTicket.clear();
-            while((line = file.readLine()) != null){
-                ContenidoDeTicket.add(line);
+            try (BufferedReader file = new BufferedReader(new FileReader(path))) {
+                String line;
+                ContenidoDeTicket.clear();
+                while((line = file.readLine()) != null){
+                    ContenidoDeTicket.add(line);
+                }
+                File borrador = new File(path);
+                borrador.delete();
             }
-            File borrador = new File(path);
-            borrador.delete();
-            file.close();
             vt.setVisible(true);
             vt.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-            vt.ActualizarTabla(true);
+            vt.ActualizarTabla("XD");
         } catch (IOException ex) {
             Logger.getLogger(PanelDeOrdenesPendientes.class.getName()).log(Level.SEVERE, null, ex);
         }

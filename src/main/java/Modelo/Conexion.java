@@ -22,6 +22,8 @@ public class Conexion {
     private Connection con = null;
     private static Conexion instancia;
     public static double Total = 0;
+    public static double TotalPendiente = 0;
+    public static HashMap<String, Double> map = new HashMap<String, Double>();
     
     
     private Conexion(){
@@ -31,6 +33,7 @@ public class Conexion {
         
         try {
             con = DriverManager.getConnection(url,user,password);
+            Dictionary();
             //JOptionPane.showMessageDialog(null, "Conexión exitosa a la base de datos SQL Server", "Info.", JOptionPane.INFORMATION_MESSAGE);
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, e.getMessage(), "Error.", JOptionPane.ERROR_MESSAGE);
@@ -43,24 +46,6 @@ public class Conexion {
             instancia = new Conexion();
         }
         return instancia;
-    }
-    
-    public void Query(){
-        try(Statement stmt = con.createStatement()){
-            try(ResultSet rs = stmt.executeQuery("SELECT * FROM PRODUCTOS")){
-                
-                while(rs.next()){
-                    
-                    String num1 = rs.getString("ID");
-                    String num2 = rs.getString("NOMBRE");
-                    
-                    JOptionPane.showMessageDialog(null, num1 +  " | " + num2);
-                }
-            }
-        }
-        catch(Exception e){
-            JOptionPane.showMessageDialog(null, e.getMessage(), "Error.", JOptionPane.ERROR_MESSAGE);
-        }
     }
     
     public String ObtenerValoresDeBoton(int id){
@@ -78,7 +63,7 @@ public class Conexion {
                     String p = rs.getString("PRECIO");
                     price = Double.parseDouble(p);
                     
-                    //Total += price;
+                    Total += price;
                 } 
             }
         }
@@ -104,7 +89,7 @@ public class Conexion {
                     String p = rs.getString("PRECIO");
                     price = Double.parseDouble(p);
                     
-                    //Total += price;
+                    Total += price;
                 } 
             }
         }
@@ -150,6 +135,35 @@ public class Conexion {
         }
         catch(Exception e){
             JOptionPane.showMessageDialog(null, e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+        }
+    }
+    
+    public void Dictionary(){
+        String sql = "SELECT C.NOMBRE, C.PRECIO\n" +
+        "FROM COCTELES C\n" +
+        "UNION ALL\n" +
+        "SELECT B.NOMBRE, B.PRECIO\n" +
+        "FROM BOTELLAS B\n" +
+        "UNION ALL\n" +
+        "SELECT S.NOMBRE, S.PRECIO\n" +
+        "FROM CERVEZAS S\n" +
+        "UNION ALL\n" +
+        "SELECT E.NOMBRE, E.PRECIO\n" +
+        "FROM ENTRADAS E\n" +
+        "UNION ALL \n" +
+        "SELECT P.NOMBRE, P.PRECIO\n" +
+        "FROM PLATOS P";
+        
+        try(Statement stmt = con.createStatement()){
+            try(ResultSet st = stmt.executeQuery(sql)){
+                while(st.next()){
+                    double precio = Double.parseDouble(st.getString("PRECIO"));
+                    map.put(st.getString("NOMBRE"), precio);
+                }
+            }
+        }
+        catch(Exception e){
+            
         }
     }
 }

@@ -85,7 +85,6 @@ public class GuardarOrden{
         if(Mesas.containsKey(NumeroMesa + ".txt")) throw new IOException("Ya esta reservado");
         if(!Mesas.containsKey(NumeroMesa+".txt")){
             JOptionPane.showMessageDialog(null, Mesas);
-            String numeroS = NumeroSerie.generateSerialNumber();
             String path = "C://Users//adrian.rodriguez//Sistema-Java//OrdenesPendientes//" + NumeroMesa+ ".txt";
             //String path = "C:/Users//adria//Documentos//NetBeansProjects//Sistema//OrdenesPendientes//" +NumeroMesa+ ".txt";
             File archivo = new File(path);

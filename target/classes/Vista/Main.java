@@ -9,13 +9,14 @@ import Modelo.Conexion;
 import Controlador.Ticket;
 import java.util.List;
 import java.util.ArrayList;
-import javax.swing.table.DefaultTableModel;
 import Controlador.EventMenuSelected;
 import Controlador.GuardarOrden;
+import Modelo.VistaTicket;
 import Paneles.*;
 import java.awt.Color;
 import java.io.File;
 import java.io.IOException;
+import java.text.DecimalFormat;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JComponent;
@@ -28,17 +29,9 @@ import javax.swing.JOptionPane;
  * @author adria
  */
 public class Main extends javax.swing.JFrame {
-    private final Conexion sql;
-    private final Ticket ticket;
     public static List<String> ContenidoDeTicket;
-    private DefaultTableModel modelo;
-    private DefaultTableModel modelo2;
-    private boolean opc = true;
     
     public Main() {
-        this.opc = true;
-        this.sql = Conexion.Instancia();
-        this.ticket = Ticket.ObtenerInstancia();
         this.ContenidoDeTicket = new ArrayList<>();   
         initComponents();
         LoadDictionaryOrd();
@@ -46,58 +39,68 @@ public class Main extends javax.swing.JFrame {
         menu2.addEventMenuSelected(new EventMenuSelected(){
             @Override
             public void selected(int index){
-                if(index == 0){
-                   setForm(new Cocteles());
-                }
-                else if(index == 1){
-                    setForm(new Platos());
-                }
-                else if(index == 2){
-                    setForm(new Entradas());
-                }
-                else if(index == 4){
-                    setForm(new Botellas());
-                }
-                else if(index == 7){
-                    Pagar p = new Pagar(ContenidoDeTicket);
-                    p.setVisible(true);
-                    p.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-                }
-                else if(index == 9){
-                    try {
-                        GuardarOrden newOrder = new GuardarOrden(ContenidoDeTicket);
-                        if(Conexion.Total != 0){
-                            try{
-                                String ans = JOptionPane.showInputDialog(null, "Ingresar Numero de Mesa: ");
-                                int mesa = Integer.parseInt(ans);
-                                newOrder.GuardarOrdenSinCancelar(mesa);
-                                
-                                ContenidoDeTicket.clear();
-                                JOptionPane.showMessageDialog(null, "Esta en una Nueva Orden", "!!!!", JOptionPane.INFORMATION_MESSAGE);
+                switch (index) {
+                    case 0:
+                        setForm(new Cocteles());
+                        break;
+                    case 1:
+                        setForm(new Platos());
+                        break;
+                    case 2:
+                        setForm(new Entradas());
+                        break;
+                    case 4:
+                        setForm(new Botellas());
+                        break;
+                    case 7:
+                        Pagar p = new Pagar(ContenidoDeTicket);
+                        p.setVisible(true);
+                        p.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+                        break;
+                    case 9:
+                        try {
+                            Control.closeAll();
+                            GuardarOrden newOrder = new GuardarOrden(ContenidoDeTicket);
+                            if(Conexion.Total != 0){
+                                try{
+                                    String ans = JOptionPane.showInputDialog(null, "Ingresar Numero de Mesa: ");
+                                    int mesa = Integer.parseInt(ans);
+                                    if(mesa < 1 || mesa > 10) throw new Exception("Entrada no valida");
+                                    newOrder.GuardarOrdenSinCancelar(mesa);
+                                    
+                                    ContenidoDeTicket.clear();
+                                    JOptionPane.showMessageDialog(null, "Esta en una Nueva Orden", "!!!!", JOptionPane.INFORMATION_MESSAGE);
+                                    Conexion.Total = 0;
+                                    repaint();
+                                }
+                                catch(Exception e){
+                                    JOptionPane.showMessageDialog(null, e.getMessage(), "!!!", JOptionPane.ERROR_MESSAGE);
+                                }
                             }
-                            catch(Exception e){
-                                JOptionPane.showMessageDialog(null, e.getMessage(), "!!!", JOptionPane.ERROR_MESSAGE);
+                            else{
+                                if(ContenidoDeTicket != null){
+                                    GuardarOrden newOrd = new GuardarOrden(ContenidoDeTicket);
+                                    newOrd.GuardarOrden();
+                                    JOptionPane.showMessageDialog(null, "Nueva Orden", "!!!!!!", JOptionPane.INFORMATION_MESSAGE);
+                                    Conexion.Total = 0;
+                                    repaint();
+                                }
                             }
-                        }
-                        else{
-                            GuardarOrden newOrd = new GuardarOrden(ContenidoDeTicket);
-                            newOrd.GuardarOrden();
-                            JOptionPane.showMessageDialog(null, "Nueva Orden", "!!!!!!", JOptionPane.INFORMATION_MESSAGE);
-                        }
-                    } catch (IOException ex) {
-                        Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
-                    }    
-                }
-                else if(index == 10){
-                    setForm(new PanelDeOrdenesPendientes());
-                }
-                else {
-                    System.out.print("Selected" + index);
+                        } catch (IOException ex) {
+                            Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
+                        }   break;
+                    case 10:
+                        setForm(new PanelDeOrdenesPendientes());
+                        break;
+                    case 11:
+                        Eliminar();
+                    default:
+                        System.out.print("Selected" + index);
+                        break;
                 }
             }
         });
-        //CargarOrdenesPendientes a = new CargarOrdenesPendientes();
-        //a.abrirCarpetaa();
+  
         Control.RegistrarMain(this); 
     }
     
@@ -115,13 +118,20 @@ public class Main extends javax.swing.JFrame {
         if(file.isDirectory()){
             File[] files = file.listFiles();
             
-            for(File s : files){
+            for(var s : files){
                 char num = s.getName().charAt(0);
-                //JOptionPane.showMessageDialog(null, "Key: " + s.getName() + "Value" + num);
                 GuardarOrden.Mesas.put(s.getName(),(int)num);
             }
         }
+    }
+    
+    private String Mod(String s){
+        String[] arr = s.split(" ");
+        Conexion.Total -= Double.parseDouble(arr[1]);
+        DecimalFormat df = new DecimalFormat("#.00");
         
+        Double p = Conexion.map.get(arr[0]);
+        return arr[0] + " " + df.format(p);
     }
 
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -174,7 +184,26 @@ public class Main extends javax.swing.JFrame {
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
-
+    public void Eliminar(){
+        VistaTicket a = VistaTicket.Instancia();
+        String valor="";
+        String b = a.getValue();
+        for(int i=3; i < b.length(); i++){
+            valor += b.charAt(i);
+        }
+        List<String> Eliminar = new ArrayList<>();
+        String DatoABuscar = Mod(valor);
+        
+        for(String s: ContenidoDeTicket){
+            if(!s.equals(DatoABuscar)) Eliminar.add(s);   
+        }
+        ContenidoDeTicket = Eliminar;
+        Control.closeAll();
+        a.repaint();
+        a.setVisible(true);
+        a.ActualizarTabla(true);
+        a.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+    }
 
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */

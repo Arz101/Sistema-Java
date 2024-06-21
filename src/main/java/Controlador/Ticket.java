@@ -32,21 +32,24 @@ public class Ticket {
             }
             else map.put(inf, map.get(inf)+1);
         }
-           
+        
         for(String keys : map.keySet()){
             if(map.get(keys) >= 1){
                 int cant = map.get(keys);
                 String[] n = keys.split(" ");
                 double p = Double.parseDouble(n[1]);
-                Conexion.Total += p;
+                Conexion.TotalPendiente += p;
                 list.add("(" + String.valueOf(map.get(keys)) + ")" + n[0] + " " +String.valueOf(df.format(p*cant)));
             }
         }
         return list;
     }
+   
     
     public String ObtenerTotal(){
         DecimalFormat df = new DecimalFormat("#.##");
         return String.valueOf(df.format(Conexion.Total));
     }
+    
+    
 }

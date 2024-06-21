@@ -6,11 +6,11 @@ package Controlador;
 
 /**
  *
- * @author adria
+ * @author adrian.rodriguez
  */
 public class EventMenuSelected {
     
-    public void EventMenuSelected(){
+    public EventMenuSelected(){
         
     }
     
