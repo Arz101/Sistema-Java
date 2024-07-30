@@ -5,6 +5,7 @@
 package Vista;
 
 import Controlador.Control;
+import Controlador.Dir;
 import Modelo.Conexion;
 import Controlador.Ticket;
 import java.util.List;
@@ -14,6 +15,8 @@ import Controlador.GuardarOrden;
 import Modelo.VistaTicket;
 import Paneles.*;
 import java.awt.Color;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.io.File;
 import java.io.IOException;
 import java.text.DecimalFormat;
@@ -28,12 +31,14 @@ import javax.swing.JOptionPane;
  *
  * @author adria
  */
-public class Main extends javax.swing.JFrame {
+public class Main extends javax.swing.JFrame implements KeyListener{
     public static List<String> ContenidoDeTicket;
     
     public Main() {
         this.ContenidoDeTicket = new ArrayList<>();   
         initComponents();
+        
+        
         LoadDictionaryOrd();
         setBackground(new Color(0,0,0,0));
         menu2.addEventMenuSelected(new EventMenuSelected(){
@@ -90,7 +95,16 @@ public class Main extends javax.swing.JFrame {
                             Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
                         }   break;
                     case 10:
-                        setForm(new PanelDeOrdenesPendientes());
+                        Dir.file = new File(Dir.PathordenesPendientes);
+                        if(Dir.file.isDirectory()){
+                            String[] list = list = Dir.file.list();
+                            
+                            if(list.length > 0)setForm(new PanelDeOrdenesPendientes());
+                        
+                            else {
+                                JOptionPane.showMessageDialog(rootPane, "Carpeta vacia", "", JOptionPane.WARNING_MESSAGE);
+                            }   
+                        }
                         break;
                     case 11:
                         Eliminar();
@@ -100,7 +114,9 @@ public class Main extends javax.swing.JFrame {
                 }
             }
         });
-  
+        Dir dir = Dir.getInstance();
+        
+        setFocusable(true);
         Control.RegistrarMain(this); 
     }
     
@@ -204,32 +220,8 @@ public class Main extends javax.swing.JFrame {
         a.ActualizarTabla(true);
         a.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
     }
-
+        
     public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Main.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Main.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Main.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Main.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new Main().setVisible(true);
@@ -242,5 +234,22 @@ public class Main extends javax.swing.JFrame {
     private Vista.Menu menu2;
     private Vista.PanelBorder panelBorder1;
     // End of variables declaration//GEN-END:variables
+
+    @Override
+    public void keyTyped(KeyEvent e) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    @Override
+    public void keyPressed(KeyEvent e) {
+        if(e.getKeyCode() == KeyEvent.VK_ESCAPE){
+            System.exit(0);
+        }
+    }
+
+    @Override
+    public void keyReleased(KeyEvent e) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
 
 }
