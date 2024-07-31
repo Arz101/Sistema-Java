@@ -5,37 +5,48 @@
 package Vista;
 
 import Controlador.Control;
+import Controlador.Dir;
 import Modelo.Conexion;
 import Controlador.Ticket;
 import java.util.List;
 import java.util.ArrayList;
 import Controlador.EventMenuSelected;
 import Controlador.GuardarOrden;
+import Controlador.Imprimir;
 import Modelo.VistaTicket;
 import Paneles.*;
 import java.awt.Color;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.io.File;
 import java.io.IOException;
 import java.text.DecimalFormat;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.InputMap;
 import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
+import javax.swing.JPanel;
 
 
 /**
  *
  * @author adria
  */
-public class Main extends javax.swing.JFrame {
+public class Main extends javax.swing.JFrame{
     public static List<String> ContenidoDeTicket;
-    
+
     public Main() {
-        this.ContenidoDeTicket = new ArrayList<>();   
+        Main.ContenidoDeTicket = new ArrayList<>();   
         initComponents();
+        
+        Conexion sql = Conexion.Instancia();
+        sql.Dictionary();
         LoadDictionaryOrd();
         setBackground(new Color(0,0,0,0));
+        
         menu2.addEventMenuSelected(new EventMenuSelected(){
             @Override
             public void selected(int index){
@@ -67,7 +78,7 @@ public class Main extends javax.swing.JFrame {
                                     int mesa = Integer.parseInt(ans);
                                     if(mesa < 1 || mesa > 10) throw new Exception("Entrada no valida");
                                     newOrder.GuardarOrdenSinCancelar(mesa);
-                                    
+                                    LoadDictionaryOrd();
                                     ContenidoDeTicket.clear();
                                     JOptionPane.showMessageDialog(null, "Esta en una Nueva Orden", "!!!!", JOptionPane.INFORMATION_MESSAGE);
                                     Conexion.Total = 0;
@@ -90,17 +101,38 @@ public class Main extends javax.swing.JFrame {
                             Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
                         }   break;
                     case 10:
-                        setForm(new PanelDeOrdenesPendientes());
+                        Dir.file = new File(Dir.PathordenesPendientes);
+                        if(Dir.file.isDirectory()){
+                            String[] list = list = Dir.file.list();
+                            
+                            if(list.length > 0)setForm(new PanelDeOrdenesPendientes());
+                        
+                            else {
+                                JOptionPane.showMessageDialog(rootPane, "Carpeta vacia", "", JOptionPane.WARNING_MESSAGE);
+                            }   
+                        }
                         break;
                     case 11:
-                        Eliminar();
+                        //Eliminar();
+                        setForm(new EditorOrden());
+                        break;
+                    case 12:
+                       String user = JOptionPane.showInputDialog(null, "User: ", "",JOptionPane.WARNING_MESSAGE);
+                        String pass = JOptionPane.showInputDialog(null, "Password: ","",JOptionPane.WARNING_MESSAGE);
+                        if(user.equals("root") && pass.equals("12345")) new Dir().setVisible(true);
+                        else JOptionPane.showMessageDialog(null, ".l.", "",JOptionPane.WARNING_MESSAGE);
+                        break;
+                    case 13:
+                        setForm(new Inicio());
                     default:
                         System.out.print("Selected" + index);
                         break;
                 }
+                
             }
         });
-  
+        
+        setFocusable(true);
         Control.RegistrarMain(this); 
     }
     
@@ -112,7 +144,7 @@ public class Main extends javax.swing.JFrame {
     }
     
     private void LoadDictionaryOrd(){
-        String path = "C://Users//adrian.rodriguez//Sistema-Java//OrdenesPendientes";
+        String path = Dir.PathordenesPendientes;
         File file = new File(path);
         
         if(file.isDirectory()){
@@ -123,15 +155,6 @@ public class Main extends javax.swing.JFrame {
                 GuardarOrden.Mesas.put(s.getName(),(int)num);
             }
         }
-    }
-    
-    private String Mod(String s){
-        String[] arr = s.split(" ");
-        Conexion.Total -= Double.parseDouble(arr[1]);
-        DecimalFormat df = new DecimalFormat("#.00");
-        
-        Double p = Conexion.map.get(arr[0]);
-        return arr[0] + " " + df.format(p);
     }
 
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -184,52 +207,8 @@ public class Main extends javax.swing.JFrame {
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
-    public void Eliminar(){
-        VistaTicket a = VistaTicket.Instancia();
-        String valor="";
-        String b = a.getValue();
-        for(int i=3; i < b.length(); i++){
-            valor += b.charAt(i);
-        }
-        List<String> Eliminar = new ArrayList<>();
-        String DatoABuscar = Mod(valor);
-        
-        for(String s: ContenidoDeTicket){
-            if(!s.equals(DatoABuscar)) Eliminar.add(s);   
-        }
-        ContenidoDeTicket = Eliminar;
-        Control.closeAll();
-        a.repaint();
-        a.setVisible(true);
-        a.ActualizarTabla(true);
-        a.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-    }
-
+   
     public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Main.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Main.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Main.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Main.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new Main().setVisible(true);

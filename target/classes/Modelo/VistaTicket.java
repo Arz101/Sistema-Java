@@ -15,7 +15,7 @@ import javax.swing.JOptionPane;
  */
 public class VistaTicket extends javax.swing.JFrame {
 
-    private final DefaultTableModel modelo;
+    protected final DefaultTableModel modelo;
     private Ticket ticket = Ticket.ObtenerInstancia();
     private static VistaTicket instancia;
     private Conexion con = Conexion.Instancia();
@@ -26,6 +26,13 @@ public class VistaTicket extends javax.swing.JFrame {
         modelo.addRow(new Object[]{"Sub Total: "});    
         ActualizarTabla(true);
         
+        Control.RegistrarFrame(this); 
+    }
+    
+        
+    protected VistaTicket(String value) {
+        initComponents();
+        modelo = (DefaultTableModel) TablaTicket.getModel();
         Control.RegistrarFrame(this); 
     }
     
@@ -56,7 +63,7 @@ public class VistaTicket extends javax.swing.JFrame {
         
     }
     
-        public void ActualizarTabla(String XD){
+    public void ActualizarTabla(String XD){
         
         modelo.setRowCount(0);
         if(true){
@@ -96,18 +103,6 @@ public class VistaTicket extends javax.swing.JFrame {
     }
     
     
-    public String getValue(){
-        try{
-            int index = TablaTicket.getSelectedRow();
-            String value = String.valueOf(modelo.getValueAt(index, 0));
-            return value;
-        }
-        catch(Exception e){
-            JOptionPane.showMessageDialog(null, e.getMessage() + "\nVERIFIQUE QUE SELECCIONO UNA FILA DEL TICKET", "ERROR!!", JOptionPane.ERROR_MESSAGE);
-        }
-        return "";
-    }
-    
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
@@ -125,7 +120,15 @@ public class VistaTicket extends javax.swing.JFrame {
             new String [] {
                 "null"
             }
-        ));
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
         jScrollPane2.setViewportView(TablaTicket);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());

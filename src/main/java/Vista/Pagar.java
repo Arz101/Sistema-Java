@@ -6,6 +6,7 @@ package Vista;
 import Controlador.Control;
 //import Controlador.CrearOrden;
 import Controlador.GuardarOrden;
+import Controlador.Imprimir;
 import Modelo.Conexion;
 import java.util.ArrayList;
 import java.util.List;

@@ -33,14 +33,14 @@ public class GuardarOrden{
     public void GuardarOrden() throws IOException{
         BufferedWriter bf;
         String NumeroSerie = generateSerialNumber();
-        String path = "C://Users//adrian.rodriguez//Sistema-Java//Ord//" + NumeroSerie + ".txt";
+        String path = Dir.PathGuardarOrdenes + NumeroSerie + ".txt";
         //String path = "C:/Users//adria//Documentos//NetBeansProjects//Sistema//Ord//"+NumeroSerie+ ".txt";
         File archivo = new File(path);        
-        
+       
         if(!archivo.exists()){
             bf = new BufferedWriter(new FileWriter(archivo));
             
-            bf.write("\n\n*******************VIKINGOS*********************\n\n\n\n");
+            bf.write("\n\n********VIKINGOS*********\n\n\n\n");
             bf.write("*  Numero de serie: " + NumeroSerie);
             bf.write("\n"+ObtenerFechaYHora());
             bf.write("\n\n\n\n");
@@ -85,15 +85,12 @@ public class GuardarOrden{
         if(Mesas.containsKey(NumeroMesa + ".txt")) throw new IOException("Ya esta reservado");
         if(!Mesas.containsKey(NumeroMesa+".txt")){
             JOptionPane.showMessageDialog(null, Mesas);
-            String path = "C://Users//adrian.rodriguez//Sistema-Java//OrdenesPendientes//" + NumeroMesa+ ".txt";
-            //String path = "C:/Users//adria//Documentos//NetBeansProjects//Sistema//OrdenesPendientes//" +NumeroMesa+ ".txt";
+            String path = Dir.PathAgregarElementoOrdenesPendientes + NumeroMesa+ ".txt";
             File archivo = new File(path);
 
             if(!archivo.exists()){
                 bf = new BufferedWriter(new FileWriter(archivo));
-            
-
-            
+                
                 for(String s : ticket){
                    bf.write(s + "\n");
                 }

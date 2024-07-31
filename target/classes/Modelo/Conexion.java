@@ -13,6 +13,7 @@ import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
 import javax.swing.JOptionPane;
 import java.util.HashMap;
+import Controlador.Dir;
 /**
  *
  * @author adria
@@ -120,7 +121,7 @@ public class Conexion {
     
     public void GuardarOrdenes(String id){
         //String path .....
-        String path = "C://Users//adrian.rodriguez//Sistema-Java//Ord//" + id + ".txt";
+        String path = Dir.PathGuardarOrdenes + id + ".txt";
         
         try(PreparedStatement pstmt = con.prepareStatement("INSERT INTO ORDENES (ID, FILECONTENT) VALUES(?, ?)")){
             File file = new File(path);
@@ -139,20 +140,21 @@ public class Conexion {
     }
     
     public void Dictionary(){
-        String sql = "SELECT C.NOMBRE, C.PRECIO\n" +
-        "FROM COCTELES C\n" +
-        "UNION ALL\n" +
-        "SELECT B.NOMBRE, B.PRECIO\n" +
-        "FROM BOTELLAS B\n" +
-        "UNION ALL\n" +
-        "SELECT S.NOMBRE, S.PRECIO\n" +
-        "FROM CERVEZAS S\n" +
-        "UNION ALL\n" +
-        "SELECT E.NOMBRE, E.PRECIO\n" +
-        "FROM ENTRADAS E\n" +
-        "UNION ALL \n" +
-        "SELECT P.NOMBRE, P.PRECIO\n" +
-        "FROM PLATOS P";
+        String sql = """
+                     SELECT C.NOMBRE, C.PRECIO
+                     FROM COCTELES C
+                     UNION ALL
+                     SELECT B.NOMBRE, B.PRECIO
+                     FROM BOTELLAS B
+                     UNION ALL
+                     SELECT S.NOMBRE, S.PRECIO
+                     FROM CERVEZAS S
+                     UNION ALL
+                     SELECT E.NOMBRE, E.PRECIO
+                     FROM ENTRADAS E
+                     UNION ALL 
+                     SELECT P.NOMBRE, P.PRECIO
+                     FROM PLATOS P""";
         
         try(Statement stmt = con.createStatement()){
             try(ResultSet st = stmt.executeQuery(sql)){
@@ -162,8 +164,7 @@ public class Conexion {
                 }
             }
         }
-        catch(Exception e){
-            
+        catch(Exception e){    
         }
     }
 }

@@ -18,6 +18,7 @@ import java.util.logging.Logger;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+import Controlador.Dir;
 /**
  *
  * @author adria
@@ -109,7 +110,7 @@ public class PanelDeOrdenesPendientes extends javax.swing.JPanel {
 // /*TODO add your handling code here:*/
         var index = ordenesTabla.getSelectedRow();
         try{
-            String path = "C://Users//adrian.rodriguez//Sistema-Java//OrdenesPendientes//" + String.valueOf(ordenesTabla.getValueAt(index, 0));
+            String path = Dir.PathAgregarElementoOrdenesPendientes + String.valueOf(ordenesTabla.getValueAt(index, 0));
             try (BufferedReader file = new BufferedReader(new FileReader(path))) {
                 String line;
                 ContenidoDeTicket.clear();

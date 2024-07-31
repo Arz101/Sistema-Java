@@ -6,7 +6,10 @@ package Paneles;
 import Modelo.Conexion;
 import Modelo.VistaTicket;
 import static Vista.Main.ContenidoDeTicket;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 /**
  *
  * @author adria

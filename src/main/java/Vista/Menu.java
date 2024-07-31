@@ -8,6 +8,9 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.RenderingHints;
 import java.awt.GradientPaint;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
+import javax.swing.JOptionPane;
 /**
  *
  * @author adria
@@ -25,7 +28,7 @@ public class Menu extends javax.swing.JPanel {
     public Menu() {
         initComponents();
         setOpaque(false);
-        listMenu1.setOpaque(false);
+        listMenu1.setOpaque(false);        
         init();
     }
     
@@ -43,7 +46,8 @@ public class Menu extends javax.swing.JPanel {
         listMenu1.addItem(new Modelo_Menu("9", "ABRIR NUEVA ORDEN", Modelo_Menu.MenuType.MENU));
         listMenu1.addItem(new Modelo_Menu("9", "ABRIR ORDEN PENDIENTE", Modelo_Menu.MenuType.MENU));
         listMenu1.addItem(new Modelo_Menu("9", "EDITAR ORDEN", Modelo_Menu.MenuType.MENU));
-
+        listMenu1.addItem(new Modelo_Menu("10", "CONFIGURACION", Modelo_Menu.MenuType.MENU));
+        listMenu1.addItem(new Modelo_Menu("11", "INICIO", Modelo_Menu.MenuType.MENU));
     }
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
