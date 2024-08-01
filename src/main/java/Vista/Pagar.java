@@ -17,6 +17,9 @@ import Controlador.Ticket;
 import java.text.DecimalFormat;
 import javax.swing.JOptionPane;
 import Modelo.VistaTicket;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 /**
  *
  * @author adria
@@ -33,6 +36,35 @@ public class Pagar extends javax.swing.JFrame {
         this.PagarCuenta = PagarCuenta;
         modelo = (DefaultTableModel) TicketPagar.getModel();
         Load_Cont();
+        
+        
+        addKeyListener(new KeyListener(){
+            @Override
+            public void keyTyped(KeyEvent e) {}
+
+            @Override
+            public void keyPressed(KeyEvent e) {
+                switch (e.getKeyCode()) {
+                    case KeyEvent.VK_1 -> LabelTotal.setText(LabelTotal.getText() + "1");
+                    case KeyEvent.VK_2 -> LabelTotal.setText(LabelTotal.getText() + "2");
+                    case KeyEvent.VK_3 -> LabelTotal.setText(LabelTotal.getText() + "3");
+                    case KeyEvent.VK_4 -> LabelTotal.setText(LabelTotal.getText() + "4");
+                    case KeyEvent.VK_5 -> LabelTotal.setText(LabelTotal.getText() + "5");
+                    case KeyEvent.VK_6 -> LabelTotal.setText(LabelTotal.getText() + "6");
+                    case KeyEvent.VK_7 -> LabelTotal.setText(LabelTotal.getText() + "7");
+                    case KeyEvent.VK_8 -> LabelTotal.setText(LabelTotal.getText() + "8");
+                    case KeyEvent.VK_9 -> LabelTotal.setText(LabelTotal.getText() + "9");
+                    case KeyEvent.VK_0 -> LabelTotal.setText(LabelTotal.getText() + "0");
+                    case KeyEvent.VK_DELETE -> LabelTotal.setText("");
+                }
+            }
+
+            @Override
+            public void keyReleased(KeyEvent e) {}
+            
+        });
+        
+        setFocusable(true);
         Control.RegistrarPagar(this);
         Control.RegistrarFrame(this);
         Control.closeAll();
@@ -439,10 +471,14 @@ public class Pagar extends javax.swing.JFrame {
             Main.ContenidoDeTicket.add("Pago: " + getPago);
             if(getPago > Conexion.Total){
                 total = (Conexion.Total-=getPago) * -1;
+                JOptionPane.showMessageDialog(null, "Devolver: " + total, "...", JOptionPane.INFORMATION_MESSAGE);
+                modelo.addRow(new Object[] {"Devuelto: " + String.valueOf(total)});
             }
-            else total = Conexion.Total-=getPago;
-                        JOptionPane.showMessageDialog(null, "Devolver: " + total, "...", JOptionPane.INFORMATION_MESSAGE);
-            modelo.addRow(new Object[] {"Devuelto: " + String.valueOf(total)});
+            else {
+                total = Conexion.Total-=getPago;
+                modelo.addRow(new Object[] {"Pendiente de pago: " + df.format(total)});
+            }
+            
             Reporte.Reporte.AjustarAccionDevuelto(total);
             if(Conexion.Total <= 0){
                 Main.ContenidoDeTicket.add("Devuelto: " + df.format(total));

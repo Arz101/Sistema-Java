@@ -84,8 +84,9 @@ public class Reporte {
             if(reporte.exists()){
                 try{
                     BufferedWriter br = new BufferedWriter(new FileWriter(reporte));
-                    ContenidoDeReporte.add(totalOrdenesDelDia + "\n");
-                    ContenidoDeReporte.add(String.valueOf(totalVenta + "- 100 de fondo: " + (totalVenta-100)));
+                    ContenidoDeReporte.add("Total de Ordenes registradas: "+totalOrdenesDelDia + "\n");
+                    ContenidoDeReporte.add("Venta total en el dia: " + totalVenta);
+                    ContenidoDeReporte.add("Ventas en tarjeta: " + totalPagosEnTarjeta);
                     ContenidoDeReporte.add("\n\n\n");
                     ContenidoDeReporte.add("FINALIZADO");
                     

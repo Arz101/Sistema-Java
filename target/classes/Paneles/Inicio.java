@@ -7,7 +7,10 @@ package Paneles;
 import Controlador.Dir;
 import Reporte.*;
 import Modelo.VistaTicket;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JPasswordField;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -87,6 +90,11 @@ public class Inicio extends javax.swing.JPanel {
 
         BtnAnular.setBackground(new java.awt.Color(255, 0, 51));
         BtnAnular.setText("ANULAR");
+        BtnAnular.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BtnAnularActionPerformed(evt);
+            }
+        });
 
         BtnIniciar.setText("INICIAR DIA");
         BtnIniciar.addActionListener(new java.awt.event.ActionListener() {
@@ -141,7 +149,6 @@ public class Inicio extends javax.swing.JPanel {
     private void BtnAbrirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnAbrirActionPerformed
         int index = TablaTicket.getSelectedRow();
         String value = (String) model.getValueAt(index, 0);
-        JOptionPane.showMessageDialog(null, "A" + value);
         new AbrirOrd(value);
     }//GEN-LAST:event_BtnAbrirActionPerformed
 
@@ -154,13 +161,18 @@ public class Inicio extends javax.swing.JPanel {
 
     private void BtnReporteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnReporteActionPerformed
         // TODO add your handling code here:
-        new JReporte().setVisible(true);
+        AbrirOrd.GenerarReporte();
     }//GEN-LAST:event_BtnReporteActionPerformed
 
     private void BtnIniciarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnIniciarActionPerformed
         // TODO add your handling code here:
-        Reporte.IniciarDia();
+        AbrirOrd.IniciarDia();
     }//GEN-LAST:event_BtnIniciarActionPerformed
+
+    private void BtnAnularActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnAnularActionPerformed
+        // TODO add your handling code here:
+        AbrirOrd.AnularOrden();
+    }//GEN-LAST:event_BtnAnularActionPerformed
     
     public class AbrirOrd extends VistaTicket{
         private String value;
@@ -177,6 +189,68 @@ public class Inicio extends javax.swing.JPanel {
             for(var s : Dir.rotornarValoresDeTicket(this.value)){
                 modelo.addRow(new Object[] {s});
             }
+        }
+        
+        public static void AnularOrden(){
+            
+            String user = JOptionPane.showInputDialog(null, "User: ", "", JOptionPane.WARNING_MESSAGE);
+            if(user.equals("admin")){
+                String password = new String(getPasswords());
+                
+                if(password.equals("12345")){
+                    new Anulacion().setVisible(true);
+                }
+                else JOptionPane.showMessageDialog(null, "Contraseña Incorrecta", "", JOptionPane.ERROR_MESSAGE);
+
+            }
+            else JOptionPane.showMessageDialog(null, "Usuario Incorrecto", "", JOptionPane.ERROR_MESSAGE);
+        }
+    
+        public static void GenerarReporte(){
+            String user = JOptionPane.showInputDialog(null, "User: ", "", JOptionPane.WARNING_MESSAGE);
+            if(user.equals("admin")){
+                String password = new String(getPasswords());
+                
+                if(password.equals("12345")){
+                    new JReporte().setVisible(true);                
+                }
+                else JOptionPane.showMessageDialog(null, "Contraseña Incorrecta", "", JOptionPane.ERROR_MESSAGE);
+
+            }
+            else JOptionPane.showMessageDialog(null, "Usuario Incorrecto", "", JOptionPane.ERROR_MESSAGE);
+        }
+        
+        public static void IniciarDia(){
+            String user = JOptionPane.showInputDialog(null, "User: ", "", JOptionPane.WARNING_MESSAGE);
+            if(user.equals("admin")){
+                String password = new String(getPasswords());
+                
+                if(password.equals("12345")){
+                    Reporte.IniciarDia();
+                }
+                else JOptionPane.showMessageDialog(null, "Contraseña Incorrecta", "", JOptionPane.ERROR_MESSAGE);
+
+            }
+            else JOptionPane.showMessageDialog(null, "Usuario Incorrecto", "", JOptionPane.ERROR_MESSAGE);
+        }
+        
+        
+        private static char [] getPasswords(){
+            JPanel panel = new JPanel();
+            JLabel label = new JLabel("Enter a password:");
+            JPasswordField pass = new JPasswordField(10);
+            panel.add(label);
+            panel.add(pass);
+            String[] options = new String[]{"OK", "Cancel"};
+            int option = JOptionPane.showOptionDialog(null, panel, "",
+                         JOptionPane.NO_OPTION, JOptionPane.WARNING_MESSAGE,
+                         null, options, options[1]);
+            if(option == 0) // pressing OK button
+            {
+                char[] password = pass.getPassword();
+                return password;
+            }
+            else return new char[0];
         }
     }
 

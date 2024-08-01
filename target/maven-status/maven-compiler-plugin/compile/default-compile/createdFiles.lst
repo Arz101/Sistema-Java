@@ -38,10 +38,12 @@ Paneles\Entradas$5.class
 Paneles\Botellas$15.class
 Paneles\Entradas$1.class
 Vista\PanelBorder.class
+Paneles\Anulacion.class
 Paneles\Cocteles$7.class
 Vista\Pagar$14.class
 Vista\Pagar$6.class
 Modelo\Modelo_Menu$MenuType.class
+Paneles\Inicio$6.class
 Paneles\Botellas$4.class
 Controlador\EventMenuSelected.class
 Paneles\Botellas$14.class
@@ -63,6 +65,7 @@ Vista\Manager.class
 Paneles\Cocteles$16.class
 Vista\Pagar$8.class
 Controlador\Ticket.class
+Paneles\Anulacion$1.class
 Paneles\Cocteles$13.class
 Vista\Pagar$5.class
 Vista\ListMenu$2.class
@@ -116,6 +119,7 @@ Modelo\VistaTicket$1.class
 Modelo\Header.class
 Paneles\Platos.class
 Paneles\Platos$6.class
+Vista\Pagar$18.class
 Paneles\Botellas$17.class
 Paneles\Inicio$2.class
 Paneles\Entradas.class

@@ -19,7 +19,10 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JComponent;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JPasswordField;
 
 
 /**
@@ -108,10 +111,16 @@ public class Main extends javax.swing.JFrame{
                         setForm(new EditorOrden());
                         break;
                     case 12:
-                       String user = JOptionPane.showInputDialog(null, "User: ", "",JOptionPane.WARNING_MESSAGE);
-                        String pass = JOptionPane.showInputDialog(null, "Password: ","",JOptionPane.WARNING_MESSAGE);
-                        if(user.equals("root") && pass.equals("12345")) new Dir().setVisible(true);
-                        else JOptionPane.showMessageDialog(null, ".l.", "",JOptionPane.WARNING_MESSAGE);
+                        String user = JOptionPane.showInputDialog(null, "User: ", "",JOptionPane.WARNING_MESSAGE);
+                        if(user.equals("admin")){
+                            String password = new String(getPasswords());
+                            if(password.equals("12345")){
+                                new Dir().setVisible(true);
+                            }
+                        }else {
+                            JOptionPane.showMessageDialog(null, "Usuario Incorrecto", "", JOptionPane.ERROR_MESSAGE);
+                        }
+                        
                         break;
                     case 13:
                         setForm(new Inicio());
@@ -125,6 +134,23 @@ public class Main extends javax.swing.JFrame{
         
         setFocusable(true);
         Control.RegistrarMain(this); 
+    }
+    
+    private char [] getPasswords(){
+        JPanel panel = new JPanel();
+        JLabel label = new JLabel("Password: ");
+        JPasswordField pass = new JPasswordField(10);
+        panel.add(label);
+        panel.add(pass);
+        Object[] options = {"YES", "CANCEL"};
+        int index = JOptionPane.showOptionDialog(null, panel, "", JOptionPane.NO_OPTION, JOptionPane.WARNING_MESSAGE, null, options, options[1]);
+        
+        if(index == 0){
+            char[] password = pass.getPassword();
+            return password;
+        }
+        
+        return new char[1];
     }
     
     private void setForm(JComponent com){
