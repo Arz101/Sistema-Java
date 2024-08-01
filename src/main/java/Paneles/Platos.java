@@ -3,7 +3,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
  */
 package Paneles;
-import Modelo.Conexion;
+import Controlador.Conexion;
 import Modelo.VistaTicket;
 import static Vista.Main.ContenidoDeTicket;
 import java.awt.event.KeyEvent;

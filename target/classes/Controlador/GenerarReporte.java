@@ -9,5 +9,8 @@ package Controlador;
  * @author adrian.rodriguez
  */
 public class GenerarReporte {
-    
+
+    public GenerarReporte() {
+        
+    }
 }

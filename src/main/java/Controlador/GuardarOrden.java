@@ -5,7 +5,7 @@
 package Controlador;
 
 import static Controlador.GuardarOrden.NumeroSerie.generateSerialNumber;
-import Modelo.Conexion;
+import Reporte.Reporte;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
@@ -23,34 +23,52 @@ import javax.swing.JOptionPane;
 public class GuardarOrden{
     private Conexion sql = Conexion.Instancia();
     private List<String> ticket;
-    public static HashMap<String, Integer> Mesas = new HashMap<String, Integer>();
+    public String NumeroSerie;
+    
+    public static HashMap<String, Integer> Mesas = new HashMap<>();
     
     public GuardarOrden(List<String> ticket){
         this.ticket = ticket;
+        NumeroSerie = generateSerialNumber();
     }
     
     
     public void GuardarOrden() throws IOException{
-        BufferedWriter bf;
-        String NumeroSerie = generateSerialNumber();
-        String path = Dir.PathGuardarOrdenes + NumeroSerie + ".txt";
-        //String path = "C:/Users//adria//Documentos//NetBeansProjects//Sistema//Ord//"+NumeroSerie+ ".txt";
-        File archivo = new File(path);        
-       
-        if(!archivo.exists()){
-            bf = new BufferedWriter(new FileWriter(archivo));
+        
+        try {
+            BufferedWriter bf;
+        
+            File archivo = ObtenerCarpetaParaGuardarOrdenes();
             
-            bf.write("\n\n********VIKINGOS*********\n\n\n\n");
-            bf.write("*  Numero de serie: " + NumeroSerie);
-            bf.write("\n"+ObtenerFechaYHora());
-            bf.write("\n\n\n\n");
+            if(!archivo.exists()){
+                bf = new BufferedWriter(new FileWriter(archivo));
+                
+                bf.write("\n\n********VIKINGOS*********\n\n\n\n");
+                bf.write("*  Numero de serie: " + NumeroSerie);
+                bf.write("\n"+ObtenerFechaYHora());
+                bf.write("\n\n\n\n");
             
-            for(String s : ticket){
-                bf.write("* " + s + "\n");
+                for(String s : ticket){
+                    bf.write("* " + s + "\n");
+                }
+                bf.close();
             }
-            bf.close();
+            sql.GuardarOrdenes(NumeroSerie);
         }
-        sql.GuardarOrdenes(NumeroSerie);
+        catch(IOException e){
+            JOptionPane.showMessageDialog(null, e.getMessage() + "\nNO SE A PODIDO REGISTRAR LA ORDEN.", "ERROR!", JOptionPane.ERROR_MESSAGE);
+        }
+        
+    }
+    
+    private File ObtenerCarpetaParaGuardarOrdenes(){
+        if(Reporte.VerificarSiElDiaSeInicio()){
+            return new File(Dir.getPathCarpetaDelDia() + "//" + NumeroSerie + ".txt");
+        }
+        else {
+            JOptionPane.showMessageDialog(null, "IMPOSIBLE REGISTRAR ORDEN, NO A INICIADO DIA", "NULL", JOptionPane.ERROR_MESSAGE);
+        }
+        return null;
     }
     
     protected String ObtenerFechaYHora(){

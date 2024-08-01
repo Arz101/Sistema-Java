@@ -7,7 +7,7 @@ import Controlador.Control;
 //import Controlador.CrearOrden;
 import Controlador.GuardarOrden;
 import Controlador.Imprimir;
-import Modelo.Conexion;
+import Controlador.Conexion;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Queue;
@@ -425,10 +425,12 @@ public class Pagar extends javax.swing.JFrame {
 
     private void BtnPagarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnPagarActionPerformed
         // TODO add your handling code here:
+        Reporte.Reporte.AjustarAccionDePago();
         accionDePago();
     }//GEN-LAST:event_BtnPagarActionPerformed
     
     private void accionDePago(){
+        Reporte.Reporte.totalOrdenesDelDia++;
         DecimalFormat df = new DecimalFormat("#.##");
         double total = 0;
         try{
@@ -441,18 +443,12 @@ public class Pagar extends javax.swing.JFrame {
             else total = Conexion.Total-=getPago;
                         JOptionPane.showMessageDialog(null, "Devolver: " + total, "...", JOptionPane.INFORMATION_MESSAGE);
             modelo.addRow(new Object[] {"Devuelto: " + String.valueOf(total)});
-            
-            /*
-            if(Conexion.Total <= 0){
-                CrearOrden ord = new CrearOrden(PagarCuenta);
-                ord.NuevaOrden();
-                Conexion.Total=0;
-            }
-            */
+            Reporte.Reporte.AjustarAccionDevuelto(total);
             if(Conexion.Total <= 0){
                 Main.ContenidoDeTicket.add("Devuelto: " + df.format(total));
                 GuardarOrden ord = new GuardarOrden(PagarCuenta);
                 ord.GuardarOrden();
+                //new Controlador.Imprimir(ord.NumeroSerie + ".txt");
                 Conexion.Total=0;
                 Vista.Main.ContenidoDeTicket.clear();
                 this.dispose();

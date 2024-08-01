@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package Modelo;
+package Controlador;
 import java.io.File;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -133,9 +133,9 @@ public class Conexion {
 
             pstmt.executeUpdate();
             
-        }
+        } 
         catch(Exception e){
-            JOptionPane.showMessageDialog(null, e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, e.getMessage(), "No se pudo ingresar orden en Base de Datos.\nrevisar la direccion de las ordenes", JOptionPane.WARNING_MESSAGE);
         }
     }
     

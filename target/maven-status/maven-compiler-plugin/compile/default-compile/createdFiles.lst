@@ -3,6 +3,7 @@ Paneles\Botellas$6.class
 Paneles\Entradas$3.class
 Paneles\Cocteles$9.class
 Paneles\Botellas.class
+Paneles\Inicio$4.class
 Paneles\Botellas$10.class
 Paneles\Botellas$20.class
 Vista\Pagar$1.class
@@ -19,10 +20,12 @@ Vista\Pagar$9.class
 Vista\Pagar$17.class
 Paneles\Botellas$16.class
 Vista\Main$2.class
+Reporte\PanelCorte$1.class
 Paneles\Cocteles$12.class
 Paneles\Botellas$19.class
 Vista\ListMenu$1.class
 Paneles\Cocteles$1.class
+Reporte\PanelCorte.class
 Paneles\Entradas$8.class
 Controlador\GuardarOrden.class
 Paneles\Cocteles$15.class
@@ -31,7 +34,6 @@ Paneles\Platos$2.class
 Vista\Pagar.class
 Paneles\PanelDeOrdenesPendientes$1.class
 Paneles\Cocteles$18.class
-Controlador\Registro.class
 Paneles\Entradas$5.class
 Paneles\Botellas$15.class
 Paneles\Entradas$1.class
@@ -50,6 +52,7 @@ Controlador\GuardarOrden$NumeroSerie.class
 Paneles\Cocteles$17.class
 Paneles\Entradas$6.class
 Paneles\Botellas$3.class
+Paneles\Inicio$5.class
 Paneles\Cocteles$10.class
 Paneles\Cocteles$6.class
 Vista\Pagar$7.class
@@ -65,7 +68,6 @@ Vista\Pagar$5.class
 Vista\ListMenu$2.class
 Paneles\Entradas$7.class
 Paneles\Cocteles$5.class
-Modelo\Conexion.class
 Paneles\Cocteles$2.class
 Paneles\Inicio$AbrirOrd.class
 Paneles\Cocteles$19.class
@@ -76,6 +78,7 @@ Paneles\Inicio.class
 Vista\Pagar$10.class
 Controlador\Imprimir.class
 Paneles\Cocteles$8.class
+Controlador\Conexion.class
 Paneles\Botellas$2.class
 Paneles\Botellas$21.class
 Paneles\Inicio$3.class
@@ -91,7 +94,9 @@ Paneles\Botellas$8.class
 Paneles\EditorOrden$2.class
 Vista\Pagar$13.class
 Vista\Pagar$3.class
+Reporte\JReporte.class
 Paneles\Cocteles.class
+Reporte\Reporte.class
 Paneles\Botellas$1.class
 Paneles\Cocteles$4.class
 Vista\ListMenu.class
@@ -100,12 +105,12 @@ Paneles\Cocteles$14.class
 Paneles\Platos$5.class
 Paneles\EditorOrden$3.class
 Paneles\Botellas$18.class
+Reporte\JReporte$1.class
 Modelo\Modelo_Menu.class
 Paneles\Cocteles$3.class
 Vista\Pagar$4.class
 Paneles\Botellas$11.class
 Paneles\Botellas$7.class
-Controlador\GenerarReporte.class
 Paneles\Botellas$22.class
 Modelo\VistaTicket$1.class
 Modelo\Header.class

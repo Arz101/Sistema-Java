@@ -1,6 +1,8 @@
+C:\Users\adrian.rodriguez\Sistema-Java\src\main\java\Reporte\JReporte.java
 C:\Users\adrian.rodriguez\Sistema-Java\src\main\java\Vista\Menu.java
 C:\Users\adrian.rodriguez\Sistema-Java\src\main\java\Vista\Pagar.java
 C:\Users\adrian.rodriguez\Sistema-Java\src\main\java\Modelo\VistaTicket.java
+C:\Users\adrian.rodriguez\Sistema-Java\src\main\java\Reporte\PanelCorte.java
 C:\Users\adrian.rodriguez\Sistema-Java\src\main\java\Vista\PanelBorder.java
 C:\Users\adrian.rodriguez\Sistema-Java\src\main\java\Controlador\Dir.java
 C:\Users\adrian.rodriguez\Sistema-Java\src\main\java\Modelo\Modelo_Menu.java
@@ -8,7 +10,6 @@ C:\Users\adrian.rodriguez\Sistema-Java\src\main\java\Vista\Manager.java
 C:\Users\adrian.rodriguez\Sistema-Java\src\main\java\Controlador\Imprimir.java
 C:\Users\adrian.rodriguez\Sistema-Java\src\main\java\Paneles\EditorOrden.java
 C:\Users\adrian.rodriguez\Sistema-Java\src\main\java\Controlador\EventMenuSelected.java
-C:\Users\adrian.rodriguez\Sistema-Java\src\main\java\Controlador\Registro.java
 C:\Users\adrian.rodriguez\Sistema-Java\src\main\java\Paneles\Botellas.java
 C:\Users\adrian.rodriguez\Sistema-Java\src\main\java\Paneles\Platos.java
 C:\Users\adrian.rodriguez\Sistema-Java\src\main\java\Paneles\Entradas.java
@@ -19,8 +20,8 @@ C:\Users\adrian.rodriguez\Sistema-Java\src\main\java\Controlador\Control.java
 C:\Users\adrian.rodriguez\Sistema-Java\src\main\java\Controlador\Ticket.java
 C:\Users\adrian.rodriguez\Sistema-Java\src\main\java\Vista\MenuItem.java
 C:\Users\adrian.rodriguez\Sistema-Java\src\main\java\Vista\Main.java
-C:\Users\adrian.rodriguez\Sistema-Java\src\main\java\Modelo\Conexion.java
-C:\Users\adrian.rodriguez\Sistema-Java\src\main\java\Controlador\GenerarReporte.java
+C:\Users\adrian.rodriguez\Sistema-Java\src\main\java\Reporte\Reporte.java
+C:\Users\adrian.rodriguez\Sistema-Java\src\main\java\Controlador\Conexion.java
 C:\Users\adrian.rodriguez\Sistema-Java\src\main\java\Vista\ListMenu.java
 C:\Users\adrian.rodriguez\Sistema-Java\src\main\java\Paneles\PanelDeOrdenesPendientes.java
 C:\Users\adrian.rodriguez\Sistema-Java\src\main\java\Modelo\Header.java

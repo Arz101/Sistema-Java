@@ -4,7 +4,6 @@
  */
 package Controlador;
 
-import Vista.Main;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
@@ -26,6 +25,8 @@ public class Dir extends javax.swing.JFrame {
     public static String PathGuardarOrdenes = "C://SISTEMA//ORDENES//";
     public static String PathAgregarElementoOrdenesPendientes = "C://SISTEMA//ORDENES PENDIENTES//";
     private static final String PathConfig =  "C://SISTEMA//config.txt";
+    public static final String PathCarpetaReportes = "C://SISTEMA//REPORTES//";
+    private static String PathGuardarOrdenesEnCarpeta;
     public static File file;
     
     public Dir() {
@@ -129,18 +130,20 @@ public class Dir extends javax.swing.JFrame {
     private void BtnAceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnAceptarActionPerformed
         // TODO add your handling code here:
         File file = new File(this.path);
+        if(!file.exists()) file.mkdir();
         
-        if(!file.exists()){
-            file.mkdir();
-            file = new File(this.PathordenesPendientes);
-            file.mkdir();
-            file = new File(this.PathGuardarOrdenes);
-            file.mkdir();
-            file = new File(this.path);
-            DefaultConfig();
-            
-            JOptionPane.showMessageDialog(null, "", "", JOptionPane.INFORMATION_MESSAGE);
-        }
+        file = new File(this.PathordenesPendientes);
+        if(!file.exists()) file.mkdir();
+        
+        file = new File(this.PathGuardarOrdenes);
+        if(!file.exists()) file.mkdir();
+        
+        file = new File(this.PathCarpetaReportes);
+        if(!file.exists()) file.mkdir();
+        
+        JOptionPane.showMessageDialog(null, "", "", JOptionPane.INFORMATION_MESSAGE);
+
+        DefaultConfig();
         this.dispose();
     }//GEN-LAST:event_BtnAceptarActionPerformed
     
@@ -184,6 +187,29 @@ public class Dir extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, e.getMessage() + " a", "ERROR", JOptionPane.ERROR_MESSAGE);
         }
         return orden;
+    }
+    
+    public static boolean CrearCarpetaDelDia(String name){
+        Dir.file = new File(Dir.PathGuardarOrdenes + name);
+        
+        if(!file.exists()){
+            file.mkdir();
+            PathGuardarOrdenesEnCarpeta = Dir.PathGuardarOrdenes + name;
+            JOptionPane.showMessageDialog(null, "Carpeta creada correctamente", "NULL", JOptionPane.INFORMATION_MESSAGE);
+            return true;
+        }
+        else if(file.exists()){            
+            PathGuardarOrdenesEnCarpeta = Dir.PathGuardarOrdenes + name;
+            return true;
+        }
+        else {
+            JOptionPane.showMessageDialog(null, "ERROR: NO SE PUEDE CREAR CARPETA ORDENES DEL DIA\n NO A FINALIZADO DIA", "NULL", JOptionPane.ERROR_MESSAGE);
+            return false;
+        }
+    }
+    
+    public static String getPathCarpetaDelDia(){
+        return PathGuardarOrdenesEnCarpeta;
     }
     
     // Variables declaration - do not modify//GEN-BEGIN:variables

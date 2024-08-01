@@ -133,9 +133,9 @@ public class Conexion {
 
             pstmt.executeUpdate();
             
-        }
+        } 
         catch(Exception e){
-            JOptionPane.showMessageDialog(null, e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, e.getMessage(), "No se pudo ingresar orden en Base de Datos.\nrevisar la direccion de las ordenes", JOptionPane.WARNING_MESSAGE);
         }
     }
     

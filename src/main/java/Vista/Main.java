@@ -3,32 +3,23 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package Vista;
-
 import Controlador.Control;
 import Controlador.Dir;
-import Modelo.Conexion;
-import Controlador.Ticket;
+import Controlador.Conexion;
 import java.util.List;
 import java.util.ArrayList;
 import Controlador.EventMenuSelected;
 import Controlador.GuardarOrden;
-import Controlador.Imprimir;
-import Modelo.VistaTicket;
 import Paneles.*;
+import Reporte.Reporte;
 import java.awt.Color;
-import java.awt.event.KeyAdapter;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
 import java.io.File;
 import java.io.IOException;
-import java.text.DecimalFormat;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.InputMap;
 import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
-import javax.swing.JPanel;
 
 
 /**
@@ -37,7 +28,7 @@ import javax.swing.JPanel;
  */
 public class Main extends javax.swing.JFrame{
     public static List<String> ContenidoDeTicket;
-
+    
     public Main() {
         Main.ContenidoDeTicket = new ArrayList<>();   
         initComponents();

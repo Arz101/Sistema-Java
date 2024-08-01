@@ -4,6 +4,7 @@
  */
 package Modelo;
 
+import Controlador.Conexion;
 import static Vista.Main.ContenidoDeTicket;
 import Controlador.Ticket;
 import javax.swing.table.DefaultTableModel;

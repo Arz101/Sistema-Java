@@ -4,7 +4,7 @@
  */
 package Paneles;
 import Controlador.Control;
-import Modelo.Conexion;
+import Controlador.Conexion;
 import Modelo.VistaTicket;
 import Vista.Main;
 import static Vista.Main.ContenidoDeTicket;
