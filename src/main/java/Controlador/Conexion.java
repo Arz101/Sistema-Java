@@ -14,6 +14,7 @@ import java.text.DecimalFormatSymbols;
 import javax.swing.JOptionPane;
 import java.util.HashMap;
 import Controlador.Dir;
+import java.awt.HeadlessException;
 /**
  *
  * @author adria
@@ -28,12 +29,12 @@ public class Conexion {
     
     
     private Conexion(){
-        String url = "jdbc:sqlserver://localhost:4022;databaseName=BAR;encrypt=true;trustServerCertificate=true";
+        String url = "jdbc:sqlserver://localhost:4022;databaseName=BAR;integratedSecurity=true;";
         String user = "root"; //user
         String password= "cr7siu1001!"; //wtf1
         
         try {
-            con = DriverManager.getConnection(url,user,password);
+            con = DriverManager.getConnection(url);
             Dictionary();
             //JOptionPane.showMessageDialog(null, "Conexión exitosa a la base de datos SQL Server", "Info.", JOptionPane.INFORMATION_MESSAGE);
         } catch (Exception e) {
@@ -101,8 +102,29 @@ public class Conexion {
         return inf;
     }
     
-    public void IniciarSesion(Object[] info){
+    public boolean IniciarSesion(Object[] info){
+        try{
+            String user = (String) info[0];
+            char[] pass = (char[]) info[1];
+            JOptionPane.showMessageDialog(null, new String(pass));
         
+            try(Statement stmt = con.createStatement()){
+                try(ResultSet rs = stmt.executeQuery("SELECT userName, pass FROM USERS WHERE userName='"+user+"' AND pass = '" + new String(pass) + "'")){
+                    if(rs.next()){
+                        return true;
+                    }
+                    return false;
+                }
+            }
+            catch(SQLException e){
+                JOptionPane.showMessageDialog(null, "USUARIO O CONTRASEÑA INCORRECTOS", "Error.", JOptionPane.ERROR_MESSAGE);
+                return false;
+            }
+        }
+        catch(ClassCastException e){
+            JOptionPane.showMessageDialog(null,e.getMessage(), "Error.", JOptionPane.ERROR_MESSAGE);
+            return false;
+        }
     }
     
     public HashMap<String, Integer> LlenarContenedor(){

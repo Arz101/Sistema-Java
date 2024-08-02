@@ -8,6 +8,7 @@ import Controlador.Conexion;
 import Controlador.Dir;
 import Reporte.*;
 import Modelo.VistaTicket;
+import java.awt.Point;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -29,7 +30,7 @@ public class Inicio extends javax.swing.JPanel {
         initComponents();
         model = (DefaultTableModel) TablaTicket.getModel();
         CargarCarpetaDeOrdenens();
-        sql.IniciarSesion(InicioSesion());
+ 
     }
     
     
@@ -260,10 +261,10 @@ public class Inicio extends javax.swing.JPanel {
         }
     }
     
-    private static Object[] InicioSesion(){
+    public static Object[] InicioSesion(){
         JPanel panel = new JPanel();
         JLabel label = new JLabel("User: ");
-        JTextField userField = new JTextField();
+        JTextField userField = new JTextField(10);
         JLabel label2 = new JLabel("Password: ");
         JPasswordField pass = new JPasswordField(10);
         
@@ -272,10 +273,10 @@ public class Inicio extends javax.swing.JPanel {
         panel.add(label2);
         panel.add(pass);
         Object[] options = {"YES", "CANCEL"};
-        
-        int index = JOptionPane.showOptionDialog(null, panel, "", JOptionPane.NO_OPTION, JOptionPane.WARNING_MESSAGE, null, options, options[1]);
+        inicioSesionPanel ins = new inicioSesionPanel();
+        int index = JOptionPane.showOptionDialog(null, ins, "PRESS BUTTON YES NOT ENTER", JOptionPane.YES_OPTION, JOptionPane.WARNING_MESSAGE, null, options, options[1]);
         if(index == 0){
-            return new Object[] {userField.getText(), pass.getPassword()};
+            return new Object[] {ins.getUser(), ins.getPass()};
         }
         return new Object[]{};
     }

@@ -57,8 +57,8 @@ public class GuardarOrden{
         }
         catch(IOException e){
             JOptionPane.showMessageDialog(null, e.getMessage() + "\nNO SE A PODIDO REGISTRAR LA ORDEN.", "ERROR!", JOptionPane.ERROR_MESSAGE);
+            Control.closeAll();
         }
-        
     }
     
     private File ObtenerCarpetaParaGuardarOrdenes(){

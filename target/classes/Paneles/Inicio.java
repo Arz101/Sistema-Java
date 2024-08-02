@@ -4,13 +4,16 @@
  */
 package Paneles;
 
+import Controlador.Conexion;
 import Controlador.Dir;
 import Reporte.*;
 import Modelo.VistaTicket;
+import java.awt.Point;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
+import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -19,11 +22,15 @@ import javax.swing.table.DefaultTableModel;
  */
 public class Inicio extends javax.swing.JPanel {
     DefaultTableModel model;
+    private String user;
+    private String key;
+    private Conexion sql = Conexion.Instancia();
     
     public Inicio() {
         initComponents();
         model = (DefaultTableModel) TablaTicket.getModel();
         CargarCarpetaDeOrdenens();
+ 
     }
     
     
@@ -252,6 +259,26 @@ public class Inicio extends javax.swing.JPanel {
             }
             else return new char[0];
         }
+    }
+    
+    public static Object[] InicioSesion(){
+        JPanel panel = new JPanel();
+        JLabel label = new JLabel("User: ");
+        JTextField userField = new JTextField(10);
+        JLabel label2 = new JLabel("Password: ");
+        JPasswordField pass = new JPasswordField(10);
+        
+        panel.add(label);
+        panel.add(userField);
+        panel.add(label2);
+        panel.add(pass);
+        Object[] options = {"YES", "CANCEL"};
+        inicioSesionPanel ins = new inicioSesionPanel();
+        int index = JOptionPane.showOptionDialog(null, ins, "PRESS BUTTON YES NOT ENTER", JOptionPane.YES_OPTION, JOptionPane.WARNING_MESSAGE, null, options, options[1]);
+        if(index == 0){
+            return new Object[] {ins.getUser(), ins.getPass()};
+        }
+        return new Object[]{};
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

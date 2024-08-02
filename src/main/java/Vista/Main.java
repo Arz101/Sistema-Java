@@ -111,19 +111,14 @@ public class Main extends javax.swing.JFrame{
                         setForm(new EditorOrden());
                         break;
                     case 12:
-                        String user = JOptionPane.showInputDialog(null, "User: ", "",JOptionPane.WARNING_MESSAGE);
-                        if(user.equals("admin")){
-                            String password = new String(getPasswords());
-                            if(password.equals("12345")){
-                                new Dir().setVisible(true);
-                            }
-                        }else {
-                            JOptionPane.showMessageDialog(null, "Usuario Incorrecto", "", JOptionPane.ERROR_MESSAGE);
+                        if(sql.IniciarSesion(Inicio.InicioSesion())){       
+                            new Dir().setVisible(true);
                         }
-                        
                         break;
                     case 13:
-                        setForm(new Inicio());
+                        if(sql.IniciarSesion(Inicio.InicioSesion())){
+                            setForm(new Inicio());
+                        }
                     default:
                         System.out.print("Selected" + index);
                         break;
@@ -134,23 +129,6 @@ public class Main extends javax.swing.JFrame{
         
         setFocusable(true);
         Control.RegistrarMain(this); 
-    }
-    
-    private char [] getPasswords(){
-        JPanel panel = new JPanel();
-        JLabel label = new JLabel("Password: ");
-        JPasswordField pass = new JPasswordField(10);
-        panel.add(label);
-        panel.add(pass);
-        Object[] options = {"YES", "CANCEL"};
-        int index = JOptionPane.showOptionDialog(null, panel, "", JOptionPane.NO_OPTION, JOptionPane.WARNING_MESSAGE, null, options, options[1]);
-        
-        if(index == 0){
-            char[] password = pass.getPassword();
-            return password;
-        }
-        
-        return new char[1];
     }
     
     private void setForm(JComponent com){

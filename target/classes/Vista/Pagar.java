@@ -6,29 +6,27 @@ package Vista;
 import Controlador.Control;
 //import Controlador.CrearOrden;
 import Controlador.GuardarOrden;
-import Controlador.Imprimir;
 import Controlador.Conexion;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Queue;
-import java.util.LinkedList;
 import javax.swing.table.DefaultTableModel;
 import Controlador.Ticket;
 import java.text.DecimalFormat;
 import javax.swing.JOptionPane;
 import Modelo.VistaTicket;
-import java.awt.event.KeyAdapter;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.ComponentListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 /**
  *
  * @author adria
  */
-public class Pagar extends javax.swing.JFrame {
+public class Pagar extends javax.swing.JFrame implements ActionListener{
     
-    private List<String> PagarCuenta;
-    private DefaultTableModel modelo;
-    private Ticket ticket = Ticket.ObtenerInstancia();
+    private final List<String> PagarCuenta;
+    private final DefaultTableModel modelo;
+    private final Ticket ticket = Ticket.ObtenerInstancia();
     
     public Pagar(List<String> PagarCuenta) {
         VistaTicket.closeTicket();
@@ -36,7 +34,6 @@ public class Pagar extends javax.swing.JFrame {
         this.PagarCuenta = PagarCuenta;
         modelo = (DefaultTableModel) TicketPagar.getModel();
         Load_Cont();
-        
         
         addKeyListener(new KeyListener(){
             @Override
@@ -54,7 +51,10 @@ public class Pagar extends javax.swing.JFrame {
                     case KeyEvent.VK_7 -> LabelTotal.setText(LabelTotal.getText() + "7");
                     case KeyEvent.VK_8 -> LabelTotal.setText(LabelTotal.getText() + "8");
                     case KeyEvent.VK_9 -> LabelTotal.setText(LabelTotal.getText() + "9");
-                    case KeyEvent.VK_0 -> LabelTotal.setText(LabelTotal.getText() + "0");
+                    case KeyEvent.VK_0 -> LabelTotal.setText(LabelTotal.getText() + "0");    
+                    case KeyEvent.VK_ENTER ->{
+                        accionDePago();
+                    }
                     case KeyEvent.VK_DELETE -> LabelTotal.setText("");
                 }
             }
@@ -457,11 +457,11 @@ public class Pagar extends javax.swing.JFrame {
 
     private void BtnPagarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnPagarActionPerformed
         // TODO add your handling code here:
-        Reporte.Reporte.AjustarAccionDePago();
         accionDePago();
     }//GEN-LAST:event_BtnPagarActionPerformed
     
     private void accionDePago(){
+        Reporte.Reporte.AjustarAccionDePago();
         Reporte.Reporte.totalOrdenesDelDia++;
         DecimalFormat df = new DecimalFormat("#.##");
         double total = 0;
@@ -492,7 +492,13 @@ public class Pagar extends javax.swing.JFrame {
             
         }
         catch(Exception e){
-            JOptionPane.showMessageDialog(null, e.getMessage(), "Entrada incorrecta", JOptionPane.ERROR_MESSAGE);
+            //JOptionPane.showMessageDialog(null, e.getMessage(), " a Entrada incorrecta", JOptionPane.ERROR_MESSAGE);
+            Conexion.Total = 0;
+            Conexion.TotalPendiente = 0;
+            Main.ContenidoDeTicket.clear();
+            Control.closeAll();
+            LabelTotal.setText("");
+            dispose();
         }
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -521,6 +527,10 @@ public class Pagar extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     // End of variables declaration//GEN-END:variables
 
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        addKeyListener((KeyListener) this);
+    }
     
 }
 

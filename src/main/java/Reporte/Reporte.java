@@ -6,6 +6,7 @@ package Reporte;
 
 import Controlador.Dir;
 import static Controlador.Dir.file;
+import java.awt.HeadlessException;
 import java.awt.SystemColor;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -27,7 +28,7 @@ import javax.swing.JOptionPane;
  * @author adrian.rodriguez
  */
 public class Reporte {
-    private static List<String> ContenidoDeReporte = new ArrayList<>();
+    private static final List<String> ContenidoDeReporte = new ArrayList<>();
     public static double fondo = 0;
     public static double totalPagosEnEfectivo = 0;
     public static double totalPagosEnTarjeta = 0;
@@ -67,8 +68,8 @@ public class Reporte {
                     JOptionPane.showMessageDialog(null, "Archivo generador correctamente!", "NULL", JOptionPane.INFORMATION_MESSAGE);
                     getFondo();
                     
-                    ContenidoDeReporte.add("******VIKINGOS*******\n");
-                    ContenidoDeReporte.add("FONDO INICIAL: " + fondo);
+                    ContenidoDeReporte.add("******VIKINGOS*******\n\n\n");
+                    ContenidoDeReporte.add("FONDO INICIAL: " + fondo+ "\n" );
                 }
                 catch(IOException e){
                     JOptionPane.showMessageDialog(null, e.getMessage(), "ERROR", JOptionPane.ERROR_MESSAGE);
@@ -83,17 +84,17 @@ public class Reporte {
             if(DiaIniciado) reporte = new File(Dir.PathCarpetaReportes + doc + ".txt");
             if(reporte.exists()){
                 try{
-                    BufferedWriter br = new BufferedWriter(new FileWriter(reporte));
-                    ContenidoDeReporte.add("Total de Ordenes registradas: "+totalOrdenesDelDia + "\n");
-                    ContenidoDeReporte.add("Venta total en el dia: " + totalVenta);
-                    ContenidoDeReporte.add("Ventas en tarjeta: " + totalPagosEnTarjeta);
-                    ContenidoDeReporte.add("\n\n\n");
-                    ContenidoDeReporte.add("FINALIZADO");
-                    
-                    for(var s : ContenidoDeReporte){
-                        br.append(s);
+                    try (BufferedWriter br = new BufferedWriter(new FileWriter(reporte))) {
+                        ContenidoDeReporte.add("Total de Ordenes registradas: "+totalOrdenesDelDia + "\n");
+                        ContenidoDeReporte.add("Venta total en el dia: " + totalVenta+ "\n");
+                        ContenidoDeReporte.add("Ventas en tarjeta: " + totalPagosEnTarjeta+ "\n");
+                        ContenidoDeReporte.add("\n\n\n");
+                        ContenidoDeReporte.add("FINALIZADO");
+                        
+                        for(var s : ContenidoDeReporte){
+                            br.append(s);
+                        }
                     }
-                    br.close();
                     DiaIniciado = false;
                 }
                 catch(IOException e){
@@ -104,7 +105,7 @@ public class Reporte {
                 JOptionPane.showMessageDialog(null, "ERROR: DIA NO INICIADO", "ERROR", JOptionPane.ERROR_MESSAGE);
             }
         }
-        catch(Exception e){
+        catch(HeadlessException e){
             JOptionPane.showMessageDialog(null, "ERROR: DIA NO INICIADO", "ERROR", JOptionPane.ERROR_MESSAGE);
         }
     }
@@ -113,8 +114,7 @@ public class Reporte {
     public static void crearReporte(File r) throws IOException{
         
         if(!r.exists()){
-            
-
+            //Do something
         }
     }
     
