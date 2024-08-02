@@ -29,12 +29,12 @@ public class Conexion {
     
     
     private Conexion(){
-        String url = "jdbc:sqlserver://localhost:4022;databaseName=BAR;integratedSecurity=true;";
+        String url = "jdbc:sqlserver://localhost:4022;databaseName=BAR;encrypt=true;trustServerCertificate=true;";
         String user = "root"; //user
         String password= "cr7siu1001!"; //wtf1
         
         try {
-            con = DriverManager.getConnection(url);
+            con = DriverManager.getConnection(url, user, password);
             Dictionary();
             //JOptionPane.showMessageDialog(null, "Conexión exitosa a la base de datos SQL Server", "Info.", JOptionPane.INFORMATION_MESSAGE);
         } catch (Exception e) {
