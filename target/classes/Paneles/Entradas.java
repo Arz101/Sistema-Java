@@ -134,7 +134,7 @@ public class Entradas extends javax.swing.JPanel {
 
     private void BtnNachosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnNachosActionPerformed
         // TODO add your handling code here:
-        String e = sql.ObtenerValoresDeBoton(1, "ENTRADAS", "ID_ENTRADA");
+        String e = sql.ObtenerValoresDeBoton(56);
         
         ContenidoDeTicket.add(e);
         vt.setVisible(true);
@@ -144,7 +144,7 @@ public class Entradas extends javax.swing.JPanel {
 
     private void BtnChicharronesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnChicharronesActionPerformed
         // TODO add your handling code here:
-        String e = sql.ObtenerValoresDeBoton(2, "ENTRADAS", "ID_ENTRADA");
+        String e = sql.ObtenerValoresDeBoton(57);
         
         ContenidoDeTicket.add(e);
         vt.setVisible(true);
@@ -154,7 +154,7 @@ public class Entradas extends javax.swing.JPanel {
 
     private void BtnChiles_ToreadosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnChiles_ToreadosActionPerformed
         // TODO add your handling code here:
-        String e = sql.ObtenerValoresDeBoton(3, "ENTRADAS", "ID_ENTRADA");
+        String e = sql.ObtenerValoresDeBoton(58);
         
         ContenidoDeTicket.add(e);
         vt.setVisible(true);
@@ -164,7 +164,7 @@ public class Entradas extends javax.swing.JPanel {
 
     private void BtnPopCornActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnPopCornActionPerformed
         // TODO add your handling code here:
-        String e = sql.ObtenerValoresDeBoton(4, "ENTRADAS", "ID_ENTRADA");
+        String e = sql.ObtenerValoresDeBoton(59);
         
         ContenidoDeTicket.add(e);
         vt.setVisible(true);
@@ -174,7 +174,7 @@ public class Entradas extends javax.swing.JPanel {
 
     private void BtnChiliPapas_QuesoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnChiliPapas_QuesoActionPerformed
         // TODO add your handling code here:
-        String e = sql.ObtenerValoresDeBoton(5, "ENTRADAS", "ID_ENTRADA");
+        String e = sql.ObtenerValoresDeBoton(60);
         
         ContenidoDeTicket.add(e);
         vt.setVisible(true);
@@ -184,7 +184,7 @@ public class Entradas extends javax.swing.JPanel {
 
     private void BtnPapas_TwistActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnPapas_TwistActionPerformed
         // TODO add your handling code here:
-        String e = sql.ObtenerValoresDeBoton(6, "ENTRADAS", "ID_ENTRADA");
+        String e = sql.ObtenerValoresDeBoton(61);
         
         ContenidoDeTicket.add(e);
         vt.setVisible(true);
@@ -194,7 +194,7 @@ public class Entradas extends javax.swing.JPanel {
 
     private void BtnAlitasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnAlitasActionPerformed
         // TODO add your handling code here:
-        String e = sql.ObtenerValoresDeBoton(7, "ENTRADAS", "ID_ENTRADA");
+        String e = sql.ObtenerValoresDeBoton(62);
         
         ContenidoDeTicket.add(e);
         vt.setVisible(true);
@@ -204,7 +204,7 @@ public class Entradas extends javax.swing.JPanel {
 
     private void BtnBoquiadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnBoquiadoActionPerformed
         // TODO add your handling code here:
-        String e = sql.ObtenerValoresDeBoton(8, "ENTRADAS", "ID_ENTRADA");
+        String e = sql.ObtenerValoresDeBoton(63);
         
         ContenidoDeTicket.add(e);
         vt.setVisible(true);

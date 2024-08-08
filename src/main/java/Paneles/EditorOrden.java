@@ -13,8 +13,6 @@ import java.awt.Image;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
-import javax.swing.ImageIcon;
-import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import Controlador.Ticket;
@@ -29,8 +27,10 @@ public class EditorOrden extends javax.swing.JPanel {
     
     public EditorOrden() {
         initComponents();
+        Control.closeAll();
         model = (DefaultTableModel) TablaTicket.getModel();
         CargarContenido();
+        Controlador.Control.EliminarTicketFrame();
     }
     
     private void CargarContenido(){
@@ -151,9 +151,19 @@ public class EditorOrden extends javax.swing.JPanel {
     private void BtnBorrarTodoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnBorrarTodoActionPerformed
         // TODO add your handling code here:
         Main.ContenidoDeTicket.clear();
+        Conexion.Total = 0;
+        limpiarTabla();
         repaint();
     }//GEN-LAST:event_BtnBorrarTodoActionPerformed
-
+    
+    public void limpiarTabla(){
+        try {
+            model.setRowCount(0);
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Error al limpiar la tabla.");
+        }
+    }
+    
     private void BtnBorrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnBorrarActionPerformed
         try{
             Eliminar();
@@ -173,16 +183,11 @@ public class EditorOrden extends javax.swing.JPanel {
     }
     
     private void Eliminar(){
-        String valor="";
-        String b = getValue();
-        for(int i=3; i < b.length(); i++){
-            valor += b.charAt(i);
-        }
         List<String> Eliminar = new ArrayList<>();
-        String DatoABuscar = Mod(valor);
+        String DatoABuscar = Mod(getValue());
         
         for(String s: ContenidoDeTicket){
-            if(!s.equals(DatoABuscar)) Eliminar.add(s);   
+            if(!s.contains(DatoABuscar)) Eliminar.add(s);   
         }
         ContenidoDeTicket = Eliminar;
         Control.closeAll();
@@ -192,17 +197,18 @@ public class EditorOrden extends javax.swing.JPanel {
     
     private String Mod(String s){
         String[] arr = s.split(" ");
+        JOptionPane.showMessageDialog(null,s);
         Conexion.Total -= Double.parseDouble(arr[1]);
+        if(Conexion.Total < 0) Conexion.Total=0;
         DecimalFormat df = new DecimalFormat("#.00");
-        
-        Double p = Conexion.map.get(arr[0]);
-        return arr[0] + " " + df.format(p);
+        return arr[0];
     }
     
     private String getValue(){
         try{
             int index = TablaTicket.getSelectedRow();
             String value = String.valueOf(model.getValueAt(index, 0));
+            model.removeRow(index);
             return value;
         }
         catch(Exception e){

@@ -15,6 +15,12 @@ import javax.swing.JOptionPane;
 import java.util.HashMap;
 import Controlador.Dir;
 import java.awt.HeadlessException;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import javax.swing.plaf.basic.BasicInternalFrameTitlePane;
 /**
  *
  * @author adria
@@ -25,20 +31,34 @@ public class Conexion {
     private static Conexion instancia;
     public static double Total = 0;
     public static double TotalPendiente = 0;
-    public static HashMap<String, Double> map = new HashMap<String, Double>();
+    private int numeroDeTicket;
+    private final HashMap<String, Integer> map = new HashMap<>();
+    private final HashMap<String ,Double> mapPrecios = new HashMap<>();
     
     
     private Conexion(){
         String url = "jdbc:sqlserver://localhost:4022;databaseName=BAR;encrypt=true;trustServerCertificate=true;";
-        String user = "root"; //user
-        String password= "cr7siu1001!"; //wtf1
-        
+        String user = "root"; 
+        String password= "cr7siu1001!";
+
         try {
             con = DriverManager.getConnection(url, user, password);
-            Dictionary();
-            //JOptionPane.showMessageDialog(null, "Conexión exitosa a la base de datos SQL Server", "Info.", JOptionPane.INFORMATION_MESSAGE);
+            Dictionay();
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, e.getMessage(), "Error.", JOptionPane.ERROR_MESSAGE);
+        }
+    }
+    
+    private void obtenerElNumeroDeTicket(){
+        try(Statement stmt = con.createStatement()){
+            try(ResultSet set = stmt.executeQuery("SELECT SCOPE_IDENTITY() as 'i'")){
+                while(set.next()){
+                    numeroDeTicket = Integer.parseInt(set.getString("i"));
+                }
+            }
+        }
+        catch(SQLException e){
+            JOptionPane.showMessageDialog(null, e.getMessage());
         }
     }
     
@@ -58,39 +78,12 @@ public class Conexion {
         DecimalFormat df = new DecimalFormat("#.##", symbols);
         double price = 0;
         try(Statement stmt = con.createStatement()){
-            try(ResultSet rs = stmt.executeQuery("SELECT * FROM COCTELES WHERE ID_COCTELES = " + String.valueOf(id))){
+            try(ResultSet rs = stmt.executeQuery("SELECT nombre, precio FROM PRODUCTOS WHERE idProducto = " + String.valueOf(id))){
                 
                 while(rs.next()){
-                    inf = rs.getString("NOMBRE") + " " + rs.getString("PRECIO");
-                    String p = rs.getString("PRECIO");
+                    inf = rs.getString("nombre") + " " + rs.getString("precio");
+                    String p = rs.getString("precio");
                     price = Double.parseDouble(p);
-                    
-                    Total += price;
-                } 
-            }
-        }
-        catch(Exception e){
-            JOptionPane.showMessageDialog(null, e.getMessage(), "Error.", JOptionPane.ERROR_MESSAGE);
-        }
-        
-        return inf;
-    }
-
-    public String ObtenerValoresDeBoton(int id, String tabla, String campo){
-        String inf ="";
-        
-        DecimalFormatSymbols symbols = new DecimalFormatSymbols();
-        symbols.setDecimalSeparator('.');
-        DecimalFormat df = new DecimalFormat("#.##", symbols);
-        double price = 0;
-        try(Statement stmt = con.createStatement()){
-            try(ResultSet rs = stmt.executeQuery("SELECT * FROM " + tabla + " WHERE " + campo + " = " + String.valueOf(id))){
-                
-                while(rs.next()){
-                    inf = rs.getString("NOMBRE") + " " + rs.getString("PRECIO");
-                    String p = rs.getString("PRECIO");
-                    price = Double.parseDouble(p);
-                    
                     Total += price;
                 } 
             }
@@ -106,12 +99,13 @@ public class Conexion {
         try{
             String user = (String) info[0];
             char[] pass = (char[]) info[1];
-            JOptionPane.showMessageDialog(null, new String(pass));
         
             try(Statement stmt = con.createStatement()){
-                try(ResultSet rs = stmt.executeQuery("SELECT userName, pass FROM USERS WHERE userName='"+user+"' AND pass = '" + new String(pass) + "'")){
-                    if(rs.next()){
-                        return true;
+                try(ResultSet rs = stmt.executeQuery("SELECT permisos FROM users WHERE userN='"+user+"' AND pass = '" + new String(pass) + "'")){
+                    while(rs.next()){
+                        String s = rs.getString("permisos");
+                        if(s.equals("SI")) return true;
+                        
                     }
                     return false;
                 }
@@ -143,52 +137,96 @@ public class Conexion {
         return e;
     }
     
-    public void GuardarOrdenes(String id){
-        //String path .....
-        String path = Dir.PathGuardarOrdenes + id + ".txt";
-        
-        try(PreparedStatement pstmt = con.prepareStatement("INSERT INTO ORDENES (ID, FILECONTENT) VALUES(?, ?)")){
-            File file = new File(path);
-            String fileName = file.getName();
-            byte[] fileContent = Files.readAllBytes(Paths.get(path));
-            
-            pstmt.setString(1, id);
-            pstmt.setBytes(2, fileContent);
-
-            pstmt.executeUpdate();
-            
-        } 
-        catch(Exception e){
-            JOptionPane.showMessageDialog(null, e.getMessage()+"\nNo se pudo ingresar orden en Base de Datos.\nrevisar la direccion de las ordenes ", "NULL", JOptionPane.WARNING_MESSAGE);
+    public void AgregarVenta(double total, double vuelto){
+        String query = "INSERT INTO VENTA (fecha, devuelto, totalVenta) values('"+ ObtenerFechaYHora()+ "' ,"+ vuelto + ", "+ total +")";
+        try(Statement stmt = con.createStatement()){
+            stmt.executeUpdate(query);
+            obtenerElNumeroDeTicket();
+        }
+        catch(SQLException e){
+            JOptionPane.showMessageDialog(null, e.getMessage(), "null", JOptionPane.WARNING_MESSAGE);
         }
     }
     
-    public void Dictionary(){
-        String sql = """
-                     SELECT C.NOMBRE, C.PRECIO
-                     FROM COCTELES C
-                     UNION ALL
-                     SELECT B.NOMBRE, B.PRECIO
-                     FROM BOTELLAS B
-                     UNION ALL
-                     SELECT S.NOMBRE, S.PRECIO
-                     FROM CERVEZAS S
-                     UNION ALL
-                     SELECT E.NOMBRE, E.PRECIO
-                     FROM ENTRADAS E
-                     UNION ALL 
-                     SELECT P.NOMBRE, P.PRECIO
-                     FROM PLATOS P""";
+    public void CrearDetalle(){
+        Controlador.Ticket tk = Controlador.Ticket.ObtenerInstancia();
         
+        for(var s : tk.ModificarCont(Vista.Main.ContenidoDeTicket)){
+            System.out.println(s);
+            CalcularCantidad(s);
+        }
+    }
+
+    private void CalcularCantidad(String producto){
+        int cantidad = Character.getNumericValue(producto.charAt(1));
+        double precio;
+        String nombre;
+        String[] array = producto.split(" ");
+        nombre = array[1];
+        precio = mapPrecios.get(nombre);
+        double total = precio*cantidad;
+        //insert into VENTA_DETALLE(idVenta, idProducto, cantidad, precio, total)
+
+        String queryDefinitivo = "insert into VENTA_DETALLE(idVenta, idProducto, cantidad, precio, total, ticket)" + " values (" + numeroDeTicket + "," + map.get(nombre) + "," + cantidad + "," + precio + "," + total + ", " + numeroDeTicket + ")";
+    
         try(Statement stmt = con.createStatement()){
-            try(ResultSet st = stmt.executeQuery(sql)){
-                while(st.next()){
-                    double precio = Double.parseDouble(st.getString("PRECIO"));
-                    map.put(st.getString("NOMBRE"), precio);
+            stmt.executeUpdate(queryDefinitivo);
+            JOptionPane.showMessageDialog(null, "Orden registrada correctamente!", "NULL", JOptionPane.INFORMATION_MESSAGE);
+        }
+        catch(SQLException e){
+            JOptionPane.showMessageDialog(null, queryDefinitivo, "NULL", JOptionPane.WARNING_MESSAGE);
+        }
+    }
+    
+    private void Dictionay(){
+        try(Statement stmt = con.createStatement()){
+            try(ResultSet rs = stmt.executeQuery("select P.nombre, P.idProducto, P.precio from PRODUCTOS P")){
+                while(rs.next()){
+                    double precio = Double.parseDouble(rs.getString("precio"));
+                    int id = Integer.parseInt(rs.getString("idProducto"));
+                    map.put(rs.getString("nombre"), id);
+                    mapPrecios.put(rs.getString("nombre"), precio);
                 }
             }
         }
-        catch(Exception e){    
+        catch(SQLException e){
+            JOptionPane.showMessageDialog(null, e.getMessage(), "NULL", JOptionPane.WARNING_MESSAGE);
         }
+    }
+    
+    private String ObtenerFechaYHora(){
+
+        LocalDateTime dateTime = LocalDateTime.now();
+
+        DateTimeFormatter formatters = DateTimeFormatter.ofPattern("dd-MM-YYYY");
+        
+        return dateTime.format(formatters);
+    }
+    
+    
+    public List<String> getOrder(int idOrd){
+        List<String> ordCancelada = new ArrayList<>();
+        List<String> detalleOrd = new ArrayList<>();
+        ordCancelada.add("********VIKINGOS***********\n\n\n");
+
+        String query;
+        query = """
+                select P.nombre, D.cantidad, P.precio, D.total from PRODUCTOS P
+                join venta_detalle D on P.idProducto = D.idProducto
+                where D.idVenta = 
+                """;
+        
+        
+        try(Statement stmt = con.createStatement()){
+            try(ResultSet st = stmt.executeQuery(query + String.valueOf(idOrd))){
+                while(st.next()){
+
+                }
+            }
+        }
+        catch(SQLException e){
+            JOptionPane.showMessageDialog(null, e.getMessage(), "NULL", JOptionPane.WARNING_MESSAGE);
+        }
+        return null;
     }
 }

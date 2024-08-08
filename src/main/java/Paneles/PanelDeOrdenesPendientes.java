@@ -120,9 +120,12 @@ public class PanelDeOrdenesPendientes extends javax.swing.JPanel {
                 File borrador = new File(path);
                 borrador.delete();
             }
+
             vt.setVisible(true);
             vt.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
             vt.ActualizarTabla("XD");
+            Conexion.Total = Conexion.TotalPendiente;
+            Conexion.TotalPendiente = 0;
         } catch (IOException ex) {
             Logger.getLogger(PanelDeOrdenesPendientes.class.getName()).log(Level.SEVERE, null, ex);
         }

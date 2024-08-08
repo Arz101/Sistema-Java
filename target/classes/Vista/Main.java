@@ -11,7 +11,6 @@ import java.util.ArrayList;
 import Controlador.EventMenuSelected;
 import Controlador.GuardarOrden;
 import Paneles.*;
-import Reporte.Reporte;
 import java.awt.Color;
 import java.io.File;
 import java.io.IOException;
@@ -19,10 +18,8 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JComponent;
 import javax.swing.JFrame;
-import javax.swing.JLabel;
 import javax.swing.JOptionPane;
-import javax.swing.JPanel;
-import javax.swing.JPasswordField;
+
 
 
 /**
@@ -37,7 +34,6 @@ public class Main extends javax.swing.JFrame{
         initComponents();
         
         Conexion sql = Conexion.Instancia();
-        sql.Dictionary();
         LoadDictionaryOrd();
         setBackground(new Color(0,0,0,0));
         
@@ -54,13 +50,20 @@ public class Main extends javax.swing.JFrame{
                     case 2:
                         setForm(new Entradas());
                         break;
+                        
+                    case 3:
+                        setForm(new Cervezas());
+                        break;
                     case 4:
                         setForm(new Botellas());
                         break;
-                    case 7:
-                        Pagar p = new Pagar(ContenidoDeTicket);
-                        p.setVisible(true);
-                        p.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+                    case 6:
+                        if(!ContenidoDeTicket.isEmpty()){
+                            Pagar p = new Pagar(ContenidoDeTicket);
+                            p.setVisible(true);
+                            p.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+                        }
+                        else JOptionPane.showMessageDialog(null, "Imposible cancelar cuenta vacia.", "null", JOptionPane.WARNING_MESSAGE);
                         break;
                     case 9:
                         try {
@@ -117,6 +120,7 @@ public class Main extends javax.swing.JFrame{
                         break;
                     case 13:
                         if(sql.IniciarSesion(Inicio.InicioSesion())){
+                            System.out.println("hola mundo");
                             setForm(new Inicio());
                         }
                     default:

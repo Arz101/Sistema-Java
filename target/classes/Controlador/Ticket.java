@@ -38,13 +38,12 @@ public class Ticket {
                 String[] n = keys.split(" ");
                 double p = Double.parseDouble(n[1]);
                 Conexion.TotalPendiente += p;
-                list.add("(" + String.valueOf(map.get(keys)) + ")" + n[0] + " " +String.valueOf(df.format(p*cant)));
+                list.add("(" + String.valueOf(map.get(keys)) + ") " + n[0] + " " +String.valueOf(df.format(p*cant)));
             }
-        }
+        } 
         return list;
     }
    
-    
     public String ObtenerTotal(){
         DecimalFormat df = new DecimalFormat("#.##");
         return String.valueOf(df.format(Conexion.Total));

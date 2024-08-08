@@ -14,6 +14,7 @@ public class Control {
     private static List<JFrame> registroFrames = new ArrayList<>();
     private static JFrame mainFrame;
     private static JFrame pagarFrame;
+    private static List<JFrame> ticketFrames = new ArrayList<>();
     
     
     public static void RegistrarMain(JFrame main){
@@ -34,8 +35,19 @@ public class Control {
         
     }
     
+    public static void RegistrarTicket(JFrame frame){
+        ticketFrames.add(frame);
+    }
+    
     public static void EliminarFrame(JFrame frame){
         registroFrames.remove(frame);
+    }
+    
+    
+    public static void EliminarTicketFrame(){
+        for(var frame : ticketFrames){
+            frame.dispose();
+        }
     }
     
     public static void closeAll(){

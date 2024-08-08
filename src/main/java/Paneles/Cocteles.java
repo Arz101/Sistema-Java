@@ -274,7 +274,7 @@ public class Cocteles extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void BtnCubaLibreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnCubaLibreActionPerformed
-        String e = sql.ObtenerValoresDeBoton(11);
+        String e = sql.ObtenerValoresDeBoton(33);
         ContenidoDeTicket.add(e);
 
         vt.setVisible(true);
@@ -283,7 +283,7 @@ public class Cocteles extends javax.swing.JPanel {
     }//GEN-LAST:event_BtnCubaLibreActionPerformed
 
     private void BtnSandBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnSandBActionPerformed
-        String e = sql.ObtenerValoresDeBoton(9);
+        String e = sql.ObtenerValoresDeBoton(31);
         ContenidoDeTicket.add(e);
 
         vt.setVisible(true);
@@ -292,7 +292,7 @@ public class Cocteles extends javax.swing.JPanel {
     }//GEN-LAST:event_BtnSandBActionPerformed
 
     private void BtnSangreVikingaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnSangreVikingaActionPerformed
-        String e = sql.ObtenerValoresDeBoton(14);
+        String e = sql.ObtenerValoresDeBoton(36);
         ContenidoDeTicket.add(e);
 
         vt.setVisible(true);
@@ -302,7 +302,7 @@ public class Cocteles extends javax.swing.JPanel {
 
     private void BtnVikingoBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnVikingoBActionPerformed
         // TODO add your handling code here:
-        String e = sql.ObtenerValoresDeBoton(2);
+        String e = sql.ObtenerValoresDeBoton(24);
         ContenidoDeTicket.add(e);
 
         vt.setVisible(true);
@@ -311,7 +311,7 @@ public class Cocteles extends javax.swing.JPanel {
     }//GEN-LAST:event_BtnVikingoBActionPerformed
 
     private void BtnValquiriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnValquiriaActionPerformed
-        String e = sql.ObtenerValoresDeBoton(15);
+        String e = sql.ObtenerValoresDeBoton(37);
         ContenidoDeTicket.add(e);
 
         vt.setVisible(true);
@@ -321,7 +321,7 @@ public class Cocteles extends javax.swing.JPanel {
 
     private void BtnVikingoNActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnVikingoNActionPerformed
         // TODO add your handling code here:
-        String e = sql.ObtenerValoresDeBoton(3);
+        String e = sql.ObtenerValoresDeBoton(25);
         ContenidoDeTicket.add(e);
 
         vt.setVisible(true);
@@ -330,7 +330,7 @@ public class Cocteles extends javax.swing.JPanel {
     }//GEN-LAST:event_BtnVikingoNActionPerformed
 
     private void BtnPerlaNegraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnPerlaNegraActionPerformed
-        String e = sql.ObtenerValoresDeBoton(16);
+        String e = sql.ObtenerValoresDeBoton(38);
         ContenidoDeTicket.add(e);
 
         vt.setVisible(true);
@@ -340,7 +340,7 @@ public class Cocteles extends javax.swing.JPanel {
 
     private void BtnBlueDreamActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnBlueDreamActionPerformed
         // TODO add your handling code here:
-        String e = sql.ObtenerValoresDeBoton(5);
+        String e = sql.ObtenerValoresDeBoton(27);
         ContenidoDeTicket.add(e);
 
         vt.setVisible(true);
@@ -349,7 +349,7 @@ public class Cocteles extends javax.swing.JPanel {
     }//GEN-LAST:event_BtnBlueDreamActionPerformed
 
     private void BtnOldFashionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnOldFashionActionPerformed
-        String e = sql.ObtenerValoresDeBoton(17);
+        String e = sql.ObtenerValoresDeBoton(39);
         ContenidoDeTicket.add(e);
 
         vt.setVisible(true);
@@ -358,7 +358,7 @@ public class Cocteles extends javax.swing.JPanel {
     }//GEN-LAST:event_BtnOldFashionActionPerformed
 
     private void BtnCuernoAzulActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnCuernoAzulActionPerformed
-        String e = sql.ObtenerValoresDeBoton(10);
+        String e = sql.ObtenerValoresDeBoton(32);
         ContenidoDeTicket.add(e);
 
         vt.setVisible(true);
@@ -367,7 +367,7 @@ public class Cocteles extends javax.swing.JPanel {
     }//GEN-LAST:event_BtnCuernoAzulActionPerformed
 
     private void BtnOdinActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnOdinActionPerformed
-        String e = sql.ObtenerValoresDeBoton(18);
+        String e = sql.ObtenerValoresDeBoton(40);
         ContenidoDeTicket.add(e);
 
         vt.setVisible(true);
@@ -377,7 +377,7 @@ public class Cocteles extends javax.swing.JPanel {
 
     private void BtnTequilaSunriseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnTequilaSunriseActionPerformed
         // TODO add your handling code here:
-        String e = sql.ObtenerValoresDeBoton(6);
+        String e = sql.ObtenerValoresDeBoton(28);
         ContenidoDeTicket.add(e);
 
         vt.setVisible(true);
@@ -386,7 +386,7 @@ public class Cocteles extends javax.swing.JPanel {
     }//GEN-LAST:event_BtnTequilaSunriseActionPerformed
 
     private void BtnBuchananActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnBuchananActionPerformed
-        String e = sql.ObtenerValoresDeBoton(19);
+        String e = sql.ObtenerValoresDeBoton(41);
         ContenidoDeTicket.add(e);
 
         vt.setVisible(true);
@@ -395,7 +395,7 @@ public class Cocteles extends javax.swing.JPanel {
     }//GEN-LAST:event_BtnBuchananActionPerformed
 
     private void BtnMargaritaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnMargaritaActionPerformed
-        String e = sql.ObtenerValoresDeBoton(7);
+        String e = sql.ObtenerValoresDeBoton(29);
         ContenidoDeTicket.add(e);
 
         vt.setVisible(true);
@@ -404,7 +404,7 @@ public class Cocteles extends javax.swing.JPanel {
     }//GEN-LAST:event_BtnMargaritaActionPerformed
 
     private void BtnDaiquiriActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnDaiquiriActionPerformed
-        String e = sql.ObtenerValoresDeBoton(8);
+        String e = sql.ObtenerValoresDeBoton(30);
         ContenidoDeTicket.add(e);
 
         vt.setVisible(true);
@@ -414,7 +414,7 @@ public class Cocteles extends javax.swing.JPanel {
 
     private void BtnHawaiiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnHawaiiActionPerformed
         // TODO add your handling code here:
-        String e = sql.ObtenerValoresDeBoton(4);
+        String e = sql.ObtenerValoresDeBoton(26);
         ContenidoDeTicket.add(e);
 
         vt.setVisible(true);
@@ -423,7 +423,7 @@ public class Cocteles extends javax.swing.JPanel {
     }//GEN-LAST:event_BtnHawaiiActionPerformed
 
     private void BtnPinaColadaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnPinaColadaActionPerformed
-        String e = sql.ObtenerValoresDeBoton(1);
+        String e = sql.ObtenerValoresDeBoton(23);
         ContenidoDeTicket.add(e);
 
         vt.setVisible(true);
@@ -432,7 +432,7 @@ public class Cocteles extends javax.swing.JPanel {
     }//GEN-LAST:event_BtnPinaColadaActionPerformed
 
     private void BtnMartiniActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnMartiniActionPerformed
-        String e = sql.ObtenerValoresDeBoton(12);
+        String e = sql.ObtenerValoresDeBoton(34);
         ContenidoDeTicket.add(e);
 
         vt.setVisible(true);
@@ -441,7 +441,7 @@ public class Cocteles extends javax.swing.JPanel {
     }//GEN-LAST:event_BtnMartiniActionPerformed
 
     private void BtnMojitosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnMojitosActionPerformed
-        String e = sql.ObtenerValoresDeBoton(13);
+        String e = sql.ObtenerValoresDeBoton(35);
         ContenidoDeTicket.add(e);
 
         vt.setVisible(true);

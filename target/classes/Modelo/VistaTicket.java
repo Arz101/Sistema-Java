@@ -28,14 +28,18 @@ public class VistaTicket extends javax.swing.JFrame {
         ActualizarTabla(true);
         
         Control.RegistrarFrame(this); 
+        RegistrarFrame();
     }
-    
         
     protected VistaTicket(String value) {
-        initComponents();
         modelo = (DefaultTableModel) TablaTicket.getModel();
         Control.RegistrarFrame(this); 
     }
+    
+    public void RegistrarFrame(){
+          Control.RegistrarTicket(this);
+    }
+    
     
     public static VistaTicket Instancia(){
         if(instancia != null){

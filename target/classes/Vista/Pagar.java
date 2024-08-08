@@ -27,6 +27,7 @@ public class Pagar extends javax.swing.JFrame implements ActionListener{
     private final List<String> PagarCuenta;
     private final DefaultTableModel modelo;
     private final Ticket ticket = Ticket.ObtenerInstancia();
+    private final Conexion sql = Conexion.Instancia();
     
     public Pagar(List<String> PagarCuenta) {
         VistaTicket.closeTicket();
@@ -34,6 +35,7 @@ public class Pagar extends javax.swing.JFrame implements ActionListener{
         this.PagarCuenta = PagarCuenta;
         modelo = (DefaultTableModel) TicketPagar.getModel();
         Load_Cont();
+        Controlador.Control.EliminarTicketFrame();
         
         addKeyListener(new KeyListener(){
             @Override
@@ -183,6 +185,11 @@ public class Pagar extends javax.swing.JFrame implements ActionListener{
         });
 
         jButton12.setText("CANCELAR");
+        jButton12.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton12ActionPerformed(evt);
+            }
+        });
 
         BtnBorrar.setText("BORRAR");
         BtnBorrar.addActionListener(new java.awt.event.ActionListener() {
@@ -459,16 +466,20 @@ public class Pagar extends javax.swing.JFrame implements ActionListener{
         // TODO add your handling code here:
         accionDePago();
     }//GEN-LAST:event_BtnPagarActionPerformed
+
+    private void jButton12ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton12ActionPerformed
+        // TODO add your handling code here:
+        this.dispose();
+    }//GEN-LAST:event_jButton12ActionPerformed
     
     private void accionDePago(){
+        double pagoTemp = Conexion.Total;
         Reporte.Reporte.AjustarAccionDePago();
         Reporte.Reporte.totalOrdenesDelDia++;
         DecimalFormat df = new DecimalFormat("#.##");
         double total = 0;
         try{
-            Main.ContenidoDeTicket.add("*******************************\n* Total a Pagar: " + df.format(Conexion.Total));
             double getPago = Double.parseDouble(LabelTotal.getText());
-            Main.ContenidoDeTicket.add("Pago: " + getPago);
             if(getPago > Conexion.Total){
                 total = (Conexion.Total-=getPago) * -1;
                 JOptionPane.showMessageDialog(null, "Devolver: " + total, "...", JOptionPane.INFORMATION_MESSAGE);
@@ -481,10 +492,9 @@ public class Pagar extends javax.swing.JFrame implements ActionListener{
             
             Reporte.Reporte.AjustarAccionDevuelto(total);
             if(Conexion.Total <= 0){
+                sql.AgregarVenta(pagoTemp, total);
+                sql.CrearDetalle();
                 Main.ContenidoDeTicket.add("Devuelto: " + df.format(total));
-                GuardarOrden ord = new GuardarOrden(PagarCuenta);
-                ord.GuardarOrden();
-                //new Controlador.Imprimir(ord.NumeroSerie + ".txt");
                 Conexion.Total=0;
                 Vista.Main.ContenidoDeTicket.clear();
                 this.dispose();
@@ -496,6 +506,7 @@ public class Pagar extends javax.swing.JFrame implements ActionListener{
             Conexion.Total = 0;
             Conexion.TotalPendiente = 0;
             Main.ContenidoDeTicket.clear();
+            Control.EliminarTicketFrame();
             Control.closeAll();
             LabelTotal.setText("");
             dispose();

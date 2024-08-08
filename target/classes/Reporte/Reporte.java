@@ -14,6 +14,7 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.sql.Statement;
 import java.time.LocalDateTime;
 import java.time.chrono.ThaiBuddhistEra;
 import java.time.format.DateTimeFormatter;
@@ -36,7 +37,7 @@ public class Reporte {
     public static int totalOrdenesDelDia = 0;
     private static String doc = ObtenerFechaYHora();
     private static File reporte;
-    public static boolean DiaIniciado = false;
+    public static boolean DiaIniciado = true;
     
     public static void getFondo(){
         try{
@@ -54,7 +55,7 @@ public class Reporte {
         catch(Exception e){
             
         }
-    }    
+    }
     
     public static void IniciarDia(){
         reporte = new File(Dir.PathCarpetaReportes + doc + ".txt");

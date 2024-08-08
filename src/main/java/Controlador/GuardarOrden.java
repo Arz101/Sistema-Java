@@ -53,7 +53,7 @@ public class GuardarOrden{
                 }
                 bf.close();
             }
-            sql.GuardarOrdenes(NumeroSerie);
+            sql.CrearDetalle();
         }
         catch(IOException e){
             JOptionPane.showMessageDialog(null, e.getMessage() + "\nNO SE A PODIDO REGISTRAR LA ORDEN.", "ERROR!", JOptionPane.ERROR_MESSAGE);
