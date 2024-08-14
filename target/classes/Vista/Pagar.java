@@ -474,8 +474,6 @@ public class Pagar extends javax.swing.JFrame implements ActionListener{
     
     private void accionDePago(){
         double pagoTemp = Conexion.Total;
-        Reporte.Reporte.AjustarAccionDePago();
-        Reporte.Reporte.totalOrdenesDelDia++;
         DecimalFormat df = new DecimalFormat("#.##");
         double total = 0;
         try{
@@ -490,9 +488,8 @@ public class Pagar extends javax.swing.JFrame implements ActionListener{
                 modelo.addRow(new Object[] {"Pendiente de pago: " + df.format(total)});
             }
             
-            Reporte.Reporte.AjustarAccionDevuelto(total);
             if(Conexion.Total <= 0){
-                sql.AgregarVenta(pagoTemp, total);
+                sql.AgregarVenta(pagoTemp, total, getPago);
                 sql.CrearDetalle();
                 Main.ContenidoDeTicket.add("Devuelto: " + df.format(total));
                 Conexion.Total=0;
@@ -502,7 +499,6 @@ public class Pagar extends javax.swing.JFrame implements ActionListener{
             
         }
         catch(Exception e){
-            //JOptionPane.showMessageDialog(null, e.getMessage(), " a Entrada incorrecta", JOptionPane.ERROR_MESSAGE);
             Conexion.Total = 0;
             Conexion.TotalPendiente = 0;
             Main.ContenidoDeTicket.clear();

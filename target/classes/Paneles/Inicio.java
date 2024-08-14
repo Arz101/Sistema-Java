@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
- */
 package Paneles;
 
 import Controlador.Conexion;
@@ -9,6 +5,9 @@ import Controlador.Dir;
 import Reporte.*;
 import Modelo.VistaTicket;
 import java.awt.Point;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
+import java.util.List;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -154,9 +153,9 @@ public class Inicio extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void BtnAbrirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnAbrirActionPerformed
-        int index = TablaTicket.getSelectedRow();
-        String value = (String) model.getValueAt(index, 0);
-        new AbrirOrd(value);
+        String ticket = JOptionPane.showInputDialog(null, "Ingrese numero de Ticket: ", "Ticket", JOptionPane.WARNING_MESSAGE);
+        
+        new AbrirOrd(sql.getOrder(Integer.parseInt(ticket)));
     }//GEN-LAST:event_BtnAbrirActionPerformed
 
     private void BtnImprimirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnImprimirActionPerformed
@@ -168,7 +167,11 @@ public class Inicio extends javax.swing.JPanel {
 
     private void BtnReporteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnReporteActionPerformed
         // TODO add your handling code here:
-        AbrirOrd.GenerarReporte();
+        Get get = new Get();
+        JOptionPane.showMessageDialog(null, get, "", JOptionPane.INFORMATION_MESSAGE);
+        
+        JReporte jReporte = new JReporte(get.getFechaInicio(), get.getFechaFinal());
+        jReporte.setVisible(true);
     }//GEN-LAST:event_BtnReporteActionPerformed
 
     private void BtnIniciarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnIniciarActionPerformed
@@ -178,62 +181,41 @@ public class Inicio extends javax.swing.JPanel {
 
     private void BtnAnularActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnAnularActionPerformed
         // TODO add your handling code here:
-        AbrirOrd.AnularOrden();
+        AbrirOrd.AnularOrden();        
     }//GEN-LAST:event_BtnAnularActionPerformed
     
     public class AbrirOrd extends VistaTicket{
-        private String value;
+        private List<String> value;
+        private static Conexion sql = Conexion.Instancia();
         
-        public AbrirOrd(String value){
+        public AbrirOrd(List<String> value){
             super("a");
-            this.value=value;
-            ActualizarTabla();
+            this.value = value;
+            this.ActualizarTabla();
             setVisible(true);
             setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         }
         
         private final void ActualizarTabla(){
-            for(var s : Dir.rotornarValoresDeTicket(this.value)){
+            for(var s : value){
                 modelo.addRow(new Object[] {s});
             }
+            repaint();
         }
         
         public static void AnularOrden(){
-            
-            String user = JOptionPane.showInputDialog(null, "User: ", "", JOptionPane.WARNING_MESSAGE);
-            if(user.equals("admin")){
-                String password = new String(getPasswords());
-                
-                if(password.equals("12345")){
-                    new Anulacion().setVisible(true);
-                }
-                else JOptionPane.showMessageDialog(null, "Contraseña Incorrecta", "", JOptionPane.ERROR_MESSAGE);
+            if(sql.IniciarSesion(InicioSesion())){
+                new Anulacion().setVisible(true);
+            }else JOptionPane.showMessageDialog(null, "usuario o contraseña incorrectos", "", JOptionPane.WARNING_MESSAGE);
 
-            }
-            else JOptionPane.showMessageDialog(null, "Usuario Incorrecto", "", JOptionPane.ERROR_MESSAGE);
-        }
-    
-        public static void GenerarReporte(){
-            String user = JOptionPane.showInputDialog(null, "User: ", "", JOptionPane.WARNING_MESSAGE);
-            if(user.equals("admin")){
-                String password = new String(getPasswords());
-                
-                if(password.equals("12345")){
-                    new JReporte().setVisible(true);                
-                }
-                else JOptionPane.showMessageDialog(null, "Contraseña Incorrecta", "", JOptionPane.ERROR_MESSAGE);
-
-            }
-            else JOptionPane.showMessageDialog(null, "Usuario Incorrecto", "", JOptionPane.ERROR_MESSAGE);
         }
         
         public static void IniciarDia(){
-            String user = JOptionPane.showInputDialog(null, "User: ", "", JOptionPane.WARNING_MESSAGE);
+            String user = JOptionPane.showInputDialog(null, "NOT: ", "", JOptionPane.WARNING_MESSAGE);
             if(user.equals("admin")){
                 String password = new String(getPasswords());
                 
                 if(password.equals("12345")){
-                    Reporte.IniciarDia();
                 }
                 else JOptionPane.showMessageDialog(null, "Contraseña Incorrecta", "", JOptionPane.ERROR_MESSAGE);
 
@@ -267,18 +249,18 @@ public class Inicio extends javax.swing.JPanel {
         JTextField userField = new JTextField(10);
         JLabel label2 = new JLabel("Password: ");
         JPasswordField pass = new JPasswordField(10);
-        
+
         panel.add(label);
         panel.add(userField);
         panel.add(label2);
         panel.add(pass);
         Object[] options = {"YES", "CANCEL"};
         inicioSesionPanel ins = new inicioSesionPanel();
-        int index = JOptionPane.showOptionDialog(null, ins, "PRESS BUTTON YES NOT ENTER", JOptionPane.YES_OPTION, JOptionPane.WARNING_MESSAGE, null, options, options[1]);
+        var index = JOptionPane.showOptionDialog(null, ins, "", JOptionPane.YES_OPTION, JOptionPane.WARNING_MESSAGE, null, options, options[0]);
         if(index == 0){
             return new Object[] {ins.getUser(), ins.getPass()};
         }
-        return new Object[]{};
+        return null;
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

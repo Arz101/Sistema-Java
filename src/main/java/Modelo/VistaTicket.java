@@ -31,7 +31,8 @@ public class VistaTicket extends javax.swing.JFrame {
         RegistrarFrame();
     }
         
-    protected VistaTicket(String value) {
+    protected VistaTicket(String value){
+        initComponents();
         modelo = (DefaultTableModel) TablaTicket.getModel();
         Control.RegistrarFrame(this); 
     }

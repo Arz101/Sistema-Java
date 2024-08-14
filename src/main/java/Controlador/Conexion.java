@@ -20,6 +20,8 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.plaf.basic.BasicInternalFrameTitlePane;
 /**
  *
@@ -27,25 +29,25 @@ import javax.swing.plaf.basic.BasicInternalFrameTitlePane;
  */
 public class Conexion {
     
-    private Connection con = null;
+    protected Connection con = null;
     private static Conexion instancia;
     public static double Total = 0;
     public static double TotalPendiente = 0;
     private int numeroDeTicket;
+    private double pago, devuelto;
     private final HashMap<String, Integer> map = new HashMap<>();
     private final HashMap<String ,Double> mapPrecios = new HashMap<>();
     
     
-    private Conexion(){
-        String url = "jdbc:sqlserver://localhost:4022;databaseName=BAR;encrypt=true;trustServerCertificate=true;";
-        String user = "root"; 
-        String password= "cr7siu1001!";
-
-        try {
-            con = DriverManager.getConnection(url, user, password);
+    protected Conexion() {
+        String port = JOptionPane.showInputDialog(null, "Ingresar puerto manual: ", "null", JOptionPane.WARNING_MESSAGE);
+        String url ="jdbc:sqlserver://localhost:%s;databaseName=BAR;encrypt=false;trustServerCertificate=false;user=root;password=cr7siu1001!;".formatted(port);
+         
+        try{ 
+            con = DriverManager.getConnection(url);
             Dictionay();
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, e.getMessage(), "Error.", JOptionPane.ERROR_MESSAGE);
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
     }
     
@@ -72,7 +74,6 @@ public class Conexion {
     
     public String ObtenerValoresDeBoton(int id){
         String inf ="";
-        
         DecimalFormatSymbols symbols = new DecimalFormatSymbols();
         symbols.setDecimalSeparator('.');
         DecimalFormat df = new DecimalFormat("#.##", symbols);
@@ -97,9 +98,13 @@ public class Conexion {
     
     public boolean IniciarSesion(Object[] info){
         try{
-            String user = (String) info[0];
-            char[] pass = (char[]) info[1];
-        
+            String user = "";
+            char[] pass = null;
+            if(info != null){
+                user = (String) info[0];
+                pass = (char[]) info[1];
+            }else return false;
+            
             try(Statement stmt = con.createStatement()){
                 try(ResultSet rs = stmt.executeQuery("SELECT permisos FROM users WHERE userN='"+user+"' AND pass = '" + new String(pass) + "'")){
                     while(rs.next()){
@@ -137,15 +142,20 @@ public class Conexion {
         return e;
     }
     
-    public void AgregarVenta(double total, double vuelto){
-        String query = "INSERT INTO VENTA (fecha, devuelto, totalVenta) values('"+ ObtenerFechaYHora()+ "' ,"+ vuelto + ", "+ total +")";
+    public void AgregarVenta(double total, double vuelto, double pago){
+        String query = "INSERT INTO VENTA(total, fecha) VALUES(%s, GETDATE())".formatted(total);
+        
         try(Statement stmt = con.createStatement()){
-            stmt.executeUpdate(query);
-            obtenerElNumeroDeTicket();
+            if(stmt.executeUpdate(query) > 0){
+                obtenerElNumeroDeTicket();
+            }
         }
         catch(SQLException e){
-            JOptionPane.showMessageDialog(null, e.getMessage(), "null", JOptionPane.WARNING_MESSAGE);
+            JOptionPane.showMessageDialog(null, e.getMessage());
         }
+        
+        this.devuelto = vuelto;
+        this.pago = pago;
     }
     
     public void CrearDetalle(){
@@ -158,24 +168,40 @@ public class Conexion {
     }
 
     private void CalcularCantidad(String producto){
-        int cantidad = Character.getNumericValue(producto.charAt(1));
         double precio;
+        int cantidad;
         String nombre;
+        
         String[] array = producto.split(" ");
+        cantidad = getNumericValue(array[0]);
         nombre = array[1];
         precio = mapPrecios.get(nombre);
         double total = precio*cantidad;
         //insert into VENTA_DETALLE(idVenta, idProducto, cantidad, precio, total)
 
-        String queryDefinitivo = "insert into VENTA_DETALLE(idVenta, idProducto, cantidad, precio, total, ticket)" + " values (" + numeroDeTicket + "," + map.get(nombre) + "," + cantidad + "," + precio + "," + total + ", " + numeroDeTicket + ")";
-    
+        String queryDefinitivo;
+        queryDefinitivo = """
+                          INSERT INTO DETALLE_VENTA(idVenta, idProducto, cantidad, precio, total, pago, Devuelto, Estado, Nota)
+                          VALUES(%s, %s, %s, %s, %s, %s, %s, 'CANCELADA', '')
+                          """.formatted(numeroDeTicket, map.get(nombre), cantidad, precio, total, this.pago, this.devuelto);
+        
+        
         try(Statement stmt = con.createStatement()){
             stmt.executeUpdate(queryDefinitivo);
-            JOptionPane.showMessageDialog(null, "Orden registrada correctamente!", "NULL", JOptionPane.INFORMATION_MESSAGE);
         }
         catch(SQLException e){
             JOptionPane.showMessageDialog(null, queryDefinitivo, "NULL", JOptionPane.WARNING_MESSAGE);
         }
+    }
+    
+    private int getNumericValue(String num){
+        String ans ="";
+        for(int i = 0; i<num.length(); i++){
+            if(num.charAt(i) != ')' && num.charAt(i) != '('){
+                ans += num.charAt(i);
+            }
+        }
+        return Integer.parseInt(ans);
     }
     
     private void Dictionay(){
@@ -193,22 +219,14 @@ public class Conexion {
             JOptionPane.showMessageDialog(null, e.getMessage(), "NULL", JOptionPane.WARNING_MESSAGE);
         }
     }
-    
-    private String ObtenerFechaYHora(){
 
-        LocalDateTime dateTime = LocalDateTime.now();
-
-        DateTimeFormatter formatters = DateTimeFormatter.ofPattern("dd-MM-YYYY");
-        
-        return dateTime.format(formatters);
-    }
-    
-    
     public List<String> getOrder(int idOrd){
         List<String> ordCancelada = new ArrayList<>();
         List<String> detalleOrd = new ArrayList<>();
+        
+        detalleOrd.add("-------------------------------------------------");
+        detalleOrd.add("Nombre           Precio   ");
         ordCancelada.add("********VIKINGOS***********\n\n\n");
-
         String query;
         query = """
                 select P.nombre, D.cantidad, P.precio, D.total from PRODUCTOS P
@@ -220,13 +238,67 @@ public class Conexion {
         try(Statement stmt = con.createStatement()){
             try(ResultSet st = stmt.executeQuery(query + String.valueOf(idOrd))){
                 while(st.next()){
-
+                    int cantidad = Integer.parseInt(st.getString("cantidad"));
+                    while(cantidad > 0){
+                        detalleOrd.add(st.getString("nombre") + " " + st.getString("precio") + "\n");
+                        cantidad--;
+                    }
                 }
             }
+            detalleOrd.add("\n-------------------------------------------------\n");
+            
+            
+            try(Statement stmt2 = con.createStatement()){
+                try(ResultSet st = stmt2.executeQuery("select * from VENTA where idVenta = " + String.valueOf(idOrd))){
+                    if(st.next()){
+                        ordCancelada.add("Fecha: " + st.getString("fecha") + "\n");
+                        ordCancelada.add("Ticket: " + st.getString("idVenta") + "\n");
+                        ordCancelada.add("\n\n");
+                        
+                        for(var s : detalleOrd){
+                            ordCancelada.add(s);
+                        }
+                        
+                        ordCancelada.add("Total: " + st.getString("totalVenta"));
+                        ordCancelada.add("Pago: " + st.getString("pago"));
+                        ordCancelada.add("Devuelto: " + st.getString("devuelto"));
+                    }
+                    else {
+                        JOptionPane.showMessageDialog(null, "No existe orden con numero de ticket: " + idOrd, "Error", JOptionPane.WARNING_MESSAGE);
+                        return new ArrayList<>();
+                    }
+                }
+            }
+            catch(SQLException e){
+                
+            }
+        
         }
         catch(SQLException e){
             JOptionPane.showMessageDialog(null, e.getMessage(), "NULL", JOptionPane.WARNING_MESSAGE);
         }
-        return null;
+        return ordCancelada;
+    }
+    
+    
+    public void AnularOrden(int idOrd, String nota){
+        String query;
+        query = """
+                Update VENTA
+                SET estado = 'ANULADA'
+                WHERE idVenta = 
+                """;
+        String query2;
+        query2 = "Update VENTA SET nota = '" + nota + "' Where idVenta = " + idOrd;
+
+        
+        try(Statement stmt = con.createStatement()){
+            stmt.executeUpdate(query + idOrd);
+            stmt.executeUpdate(query2);
+            JOptionPane.showMessageDialog(null, "La orden a sido anulada", "", JOptionPane.INFORMATION_MESSAGE);
+        }
+        catch(SQLException e){
+            JOptionPane.showMessageDialog(null, e.getMessage());
+        }
     }
 }

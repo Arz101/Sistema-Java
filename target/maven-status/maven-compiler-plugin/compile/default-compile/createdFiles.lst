@@ -15,7 +15,6 @@ Paneles\Botellas$19.class
 Vista\ListMenu$1.class
 Paneles\Cervezas$3.class
 Paneles\Cocteles$1.class
-Reporte\PanelCorte.class
 Paneles\Entradas$8.class
 Controlador\GuardarOrden.class
 Paneles\Cocteles$11.class
@@ -48,6 +47,7 @@ Paneles\Botellas$5.class
 Paneles\Entradas$4.class
 Paneles\Entradas$2.class
 Paneles\Inicio.class
+Reporte\Info.class
 Paneles\Cocteles$8.class
 Vista\Menu.class
 Paneles\Cervezas$7.class
@@ -61,15 +61,16 @@ Paneles\EditorOrden$2.class
 Vista\Pagar$3.class
 Reporte\JReporte.class
 Paneles\Cocteles.class
-Reporte\Reporte.class
 Vista\ListMenu.class
 Paneles\EditorOrden$3.class
 Paneles\inicioSesionPanel.class
 Paneles\Cervezas$4.class
+Controlador\Reporte.class
 Modelo\Modelo_Menu.class
 Vista\Pagar$4.class
 Paneles\Botellas$11.class
 Paneles\Botellas$7.class
+Reporte\Get.class
 Paneles\Cervezas.class
 Modelo\VistaTicket$1.class
 Modelo\Header.class
@@ -89,7 +90,6 @@ Vista\Pagar$12.class
 Paneles\Botellas$23.class
 Vista\Pagar$17.class
 Paneles\Botellas$16.class
-Reporte\PanelCorte$1.class
 Paneles\Cocteles$15.class
 Paneles\Platos$2.class
 Paneles\Entradas$5.class
@@ -133,10 +133,10 @@ Vista\Pagar$11.class
 Paneles\Cocteles$14.class
 Paneles\Platos$5.class
 Paneles\Botellas$18.class
-Reporte\JReporte$1.class
 Paneles\Cocteles$3.class
 Paneles\Cervezas$10.class
 Paneles\Botellas$22.class
 Paneles\Platos$6.class
 Paneles\Botellas$17.class
 Paneles\Inicio$2.class
+Reporte\Get$1.class

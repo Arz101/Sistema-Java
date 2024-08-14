@@ -5,7 +5,6 @@
 package Controlador;
 
 import static Controlador.GuardarOrden.NumeroSerie.generateSerialNumber;
-import Reporte.Reporte;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
@@ -38,7 +37,7 @@ public class GuardarOrden{
         try {
             BufferedWriter bf;
         
-            File archivo = ObtenerCarpetaParaGuardarOrdenes();
+            File archivo = null;
             
             if(!archivo.exists()){
                 bf = new BufferedWriter(new FileWriter(archivo));
@@ -59,16 +58,6 @@ public class GuardarOrden{
             JOptionPane.showMessageDialog(null, e.getMessage() + "\nNO SE A PODIDO REGISTRAR LA ORDEN.", "ERROR!", JOptionPane.ERROR_MESSAGE);
             Control.closeAll();
         }
-    }
-    
-    private File ObtenerCarpetaParaGuardarOrdenes(){
-        if(Reporte.VerificarSiElDiaSeInicio()){
-            return new File(Dir.getPathCarpetaDelDia() + "//" + NumeroSerie + ".txt");
-        }
-        else {
-            JOptionPane.showMessageDialog(null, "IMPOSIBLE REGISTRAR ORDEN, NO A INICIADO DIA", "NULL", JOptionPane.ERROR_MESSAGE);
-        }
-        return null;
     }
     
     protected String ObtenerFechaYHora(){

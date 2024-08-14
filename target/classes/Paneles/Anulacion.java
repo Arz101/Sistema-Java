@@ -4,18 +4,13 @@
  */
 package Paneles;
 
-import Controlador.Dir;
-import java.io.File;
-import java.util.Arrays;
-import java.util.List;
-import javax.swing.JOptionPane;
-
+import Controlador.Conexion;
 /**
  *
  * @author adrian.rodriguez
  */
 public class Anulacion extends javax.swing.JFrame {
-
+    Conexion sql = Conexion.Instancia();
     /**
      * Creates new form Anulacion
      */
@@ -116,27 +111,11 @@ public class Anulacion extends javax.swing.JFrame {
 
     private void BtnAccionarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnAccionarActionPerformed
         // TODO add your handling code here:
-        if(validarNumeroDeSerie(TxtNumeroSerie.getText())){
-            JOptionPane.showMessageDialog(null, "A", "", JOptionPane.WARNING_MESSAGE);
-
-        }
-        else {
-            JOptionPane.showMessageDialog(null, "ELEMENTO NO ENCONTRADO\nVERIFIQUE NUMERO DE SERIE", "", JOptionPane.WARNING_MESSAGE);
-        }
+        
+        sql.AnularOrden(Integer.parseInt(TxtNumeroSerie.getText()), TxtMotivo.getText());
+        
+        
     }//GEN-LAST:event_BtnAccionarActionPerformed
-
-    private boolean validarNumeroDeSerie(String num){
-        File file = new File(Dir.getPathCarpetaDelDia());
-        List<String> list = Arrays.asList(file.list());
-        
-        for(var s : list){
-            if(s.contains(num)){
-                return true;
-            }
-        }
-        return false;
-    }
-        
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton BtnAccionar;

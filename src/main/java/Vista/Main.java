@@ -19,7 +19,7 @@ import java.util.logging.Logger;
 import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
-
+import java.util.Scanner;
 
 
 /**
@@ -29,11 +29,12 @@ import javax.swing.JOptionPane;
 public class Main extends javax.swing.JFrame{
     public static List<String> ContenidoDeTicket;
     
-    public Main() {
+    public Main() {        
         Main.ContenidoDeTicket = new ArrayList<>();   
         initComponents();
         
         Conexion sql = Conexion.Instancia();
+        //sql.getOrder(7);
         LoadDictionaryOrd();
         setBackground(new Color(0,0,0,0));
         
@@ -123,6 +124,7 @@ public class Main extends javax.swing.JFrame{
                             System.out.println("hola mundo");
                             setForm(new Inicio());
                         }
+                        else JOptionPane.showMessageDialog(null, "usuario o contraseña incorrectos", "", JOptionPane.WARNING_MESSAGE);
                     default:
                         System.out.print("Selected" + index);
                         break;
