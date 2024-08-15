@@ -3,26 +3,16 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package Controlador;
-import java.io.File;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.sql.*;
 import java.sql.DriverManager;
 import java.sql.Statement;
 import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
+import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import java.util.HashMap;
-import Controlador.Dir;
-import java.awt.HeadlessException;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.swing.plaf.basic.BasicInternalFrameTitlePane;
+
 /**
  *
  * @author adria
@@ -40,8 +30,7 @@ public class Conexion {
     
     
     protected Conexion() {
-        String port = JOptionPane.showInputDialog(null, "Ingresar puerto manual: ", "null", JOptionPane.WARNING_MESSAGE);
-        String url ="jdbc:sqlserver://localhost:%s;databaseName=BAR;encrypt=false;trustServerCertificate=false;user=root;password=cr7siu1001!;".formatted(port);
+        String url ="jdbc:sqlserver://localhost:4022;databaseName=BAR;encrypt=false;trustServerCertificate=false;user=root;password=cr7siu1001!;";
          
         try{ 
             con = DriverManager.getConnection(url);
@@ -60,7 +49,7 @@ public class Conexion {
             }
         }
         catch(SQLException e){
-            JOptionPane.showMessageDialog(null, e.getMessage());
+            e.printStackTrace();
         }
     }
     
@@ -90,7 +79,7 @@ public class Conexion {
             }
         }
         catch(Exception e){
-            JOptionPane.showMessageDialog(null, e.getMessage(), "Error.", JOptionPane.ERROR_MESSAGE);
+            e.printStackTrace();
         }
         
         return inf;
@@ -230,7 +219,7 @@ public class Conexion {
         String query;
         query = """
                 select P.nombre, D.cantidad, P.precio, D.total from PRODUCTOS P
-                join venta_detalle D on P.idProducto = D.idProducto
+                join DETALLE_VENTA D on P.idProducto = D.idProducto
                 where D.idVenta = 
                 """;
         
@@ -248,8 +237,14 @@ public class Conexion {
             detalleOrd.add("\n-------------------------------------------------\n");
             
             
+            String query2;
+            query2 = """
+                     SELECT V.idVenta, V.Fecha, V.Total, D.Pago, D.Devuelto FROM VENTA V
+                     JOIN DETALLE_VENTA D ON D.IDVENTA = V.IDVENTA
+                     WHERE V.IDVENTA = %s
+                     """.formatted(idOrd);
             try(Statement stmt2 = con.createStatement()){
-                try(ResultSet st = stmt2.executeQuery("select * from VENTA where idVenta = " + String.valueOf(idOrd))){
+                try(ResultSet st = stmt2.executeQuery(query2)){
                     if(st.next()){
                         ordCancelada.add("Fecha: " + st.getString("fecha") + "\n");
                         ordCancelada.add("Ticket: " + st.getString("idVenta") + "\n");
@@ -259,7 +254,7 @@ public class Conexion {
                             ordCancelada.add(s);
                         }
                         
-                        ordCancelada.add("Total: " + st.getString("totalVenta"));
+                        ordCancelada.add("Total: " + st.getString("Total"));
                         ordCancelada.add("Pago: " + st.getString("pago"));
                         ordCancelada.add("Devuelto: " + st.getString("devuelto"));
                     }
@@ -270,12 +265,12 @@ public class Conexion {
                 }
             }
             catch(SQLException e){
-                
+                e.printStackTrace();
             }
         
         }
         catch(SQLException e){
-            JOptionPane.showMessageDialog(null, e.getMessage(), "NULL", JOptionPane.WARNING_MESSAGE);
+            e.printStackTrace();
         }
         return ordCancelada;
     }
@@ -298,7 +293,7 @@ public class Conexion {
             JOptionPane.showMessageDialog(null, "La orden a sido anulada", "", JOptionPane.INFORMATION_MESSAGE);
         }
         catch(SQLException e){
-            JOptionPane.showMessageDialog(null, e.getMessage());
+             e.printStackTrace();
         }
     }
 }
